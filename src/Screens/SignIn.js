@@ -1,4 +1,8 @@
-import { View, Text } from "react-native"
+import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native"
+import React, { useState , useEffect} from 'react';
+import { auth, onAuthStateChanged  } from '../config/firebaseconfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // logar
 export default function SignIn(){
@@ -36,7 +40,7 @@ export default function SignIn(){
         <KeyboardAvoidingView 
             behavior={Platform.OS === "ios" ? "padding": "height"}
             style={styles.container}>
-                
+
         <Text style={styles.title}>Login</Text>
 
         <TextInput
@@ -52,7 +56,6 @@ export default function SignIn(){
           placeholder="User"
           value={user}
           onChangeText={setUser}
-          secureTextEntry
         />
 
         <TextInput
@@ -62,95 +65,40 @@ export default function SignIn(){
           onChangeText={setPassword}
           secureTextEntry
         />
+
+        {error === true
+          ?
+        <View style={styles.alert}>
+          <Ionicons name="alert-circle" size={24} color="red" />
+          <Text style={styles.txtalert}>email ou senha inválidos</Text>
+        </View>
+          :
+        <View/>
+        }
+        {email === '' || password == ''
+        ?
+        <TouchableOpacity style={styles.btnLogin} disabled={true}>
+            <Text style={styles.txtbtnLogin}>Login</Text>
+        </TouchableOpacity>
+        :
+        <TouchableOpacity style={styles.btnLogin} onPress={LoginUser}>
+            <Text style={styles.txtbtnLogin}>Login</Text>
+        </TouchableOpacity> 
+        }
+    
+            <Text 
+            style={styles.txtNewuser}
+            onPress={() => navigation.navigate('NewUser')}>
+            Não possui uma conta? criar
+            </Text>
+            
 
         </KeyboardAvoidingView>
     )
 
 }
 
-export default function Login ({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-  
-    const LoginUser = async () => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log('User logged in:', userCredential.user);
-        navigation.navigate('Task', { idUser: userCredential.user.uid }); 
-  
-      } catch (error) {
-        console.error('Error logging in:', error);
-        //Alert.alert('Error', error.message);
-        setError(true)
-      }
-    };
-
-    useEffect(() => {
-      const statusAuth = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          navigation.navigate("Task", { idUser: user.uid });
-        }
-      });
-  
-      return () => statusAuth();
-  
-    },[])
-  
-    return (
-      <KeyboardAvoidingView 
-      behavior={Platform.OS === "ios" ? "padding": "height"}
-      style={styles.container}>
-        <Text style={styles.title}>Login</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-  
-      {error === true
-          ?
-      <View style={styles.alert}>
-          <Ionicons name="alert-circle" size={24} color="red" />
-          <Text style={styles.txtalert}>email ou senha inválidos</Text>
-      </View>
-          :
-      <View/>
-      }
-      {email === '' || password == ''
-      ?
-      <TouchableOpacity style={styles.btnLogin} disabled={true}>
-          <Text style={styles.txtbtnLogin}>Login</Text>
-      </TouchableOpacity>
-      :
-      <TouchableOpacity style={styles.btnLogin} onPress={LoginUser}>
-          <Text style={styles.txtbtnLogin}>Login</Text>
-      </TouchableOpacity> 
-      }
-  
-        <Text 
-        style={styles.txtNewuser}
-        onPress={() => navigation.navigate('NewUser')}>
-          Não possui uma conta? criar
-          </Text>
-          
-      
-  
-      </KeyboardAvoidingView>
-    );
-  };
-  
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
@@ -207,4 +155,4 @@ export default function Login ({ navigation }) {
   
     }
   
-  });
+});
