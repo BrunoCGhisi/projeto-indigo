@@ -85,7 +85,6 @@ export default function SignUp(){
             <Text style={styles.txtbtnLogin}>Login</Text>
         </TouchableOpacity> 
         }
-    
         </KeyboardAvoidingView>
     )
 
