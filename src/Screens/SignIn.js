@@ -20,21 +20,10 @@ export default function SignIn(){
     
         } catch (error) {
           console.error('Erro ao logar:', error);
-          //Alert.alert('Error', error.message);
+          Alert.alert('Error', error.message);
           setError(true)
         }
       };
-
-      useEffect(() => {
-        const statusAuth = onAuthStateChanged(auth, (user) => { // se eu muda de usuario muda a task
-          if (user) {
-            navigation.navigate("UserProfile", { idUser: user.uid });
-          }
-        });
-    
-        return () => statusAuth();
-    
-      },[])
 
     return(
         <KeyboardAvoidingView 
