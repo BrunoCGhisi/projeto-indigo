@@ -7,12 +7,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Mudar pro nosso banco
 const firebaseConfig = {
-  apiKey: "AIzaSyDi3bsKx7K0YIlzhNsX4rkVPdxTBP_ukXs",
-  authDomain: "task-53ab8.firebaseapp.com",
-  projectId: "task-53ab8",
-  storageBucket: "task-53ab8.appspot.com",
-  messagingSenderId: "175721793207",
-  appId: "1:175721793207:web:4db623c38c67ee1f14af32"
+  apiKey: "AIzaSyAIgFuTyAywbwnVnvBfnha5Bj1KuWOTHts",
+  authDomain: "indigo-123.firebaseapp.com",
+  projectId: "indigo-123",
+  storageBucket: "indigo-123.appspot.com",
+  messagingSenderId: "506699494758",
+  appId: "1:506699494758:web:23056ab45cc8139d8004a7"
 };
 
 // Initialize Firebase
@@ -21,3 +21,4 @@ const database = getFirestore(app);  /* chamando o banco de dados que criamos */
 const auth = getAuth(); // para fazer a autenticação
 
 export {database, collection, doc, deleteDoc, addDoc, auth, onAuthStateChanged}; 
+// npm install firebase
