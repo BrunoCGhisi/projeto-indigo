@@ -38,7 +38,7 @@ export default function SignIn ({ navigation }) {
     <KeyboardAvoidingView 
     behavior={Platform.OS === "ios" ? "padding": "height"}
     style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Logi aaaaan</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
