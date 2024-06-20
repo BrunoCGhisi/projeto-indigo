@@ -1,17 +1,19 @@
 import React, { useState , useEffect} from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, Platform, TouchableOpacity , Button} from 'react-native';
-import { auth, onAuthStateChanged  } from '../config/firebaseconfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, Platform, TouchableOpacity} from 'react-native';
+import { auth, onAuthStateChanged  } from '../config/firebaseconfig'; 
+import { signInWithEmailAndPassword } from 'firebase/auth'; // propriedade firebase
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function Login ({ navigation }) {
+export default function SignIn ({ navigation }) {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const LoginUser = async () => {
+  const SignInUser = async () => {
+    
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password); //userCredential vai instaciar com os dados que ele vai receber
       console.log('User logged in:', userCredential.user);
       navigation.navigate('Task', { idUser: userCredential.user.uid }); 
 
@@ -24,7 +26,7 @@ export default function Login ({ navigation }) {
   useEffect(() => {
     const statusAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate("Task", { idUser: user.uid });
+        navigation.navigate("Post", { idUser: user.uid });
       }
     });
 
@@ -68,14 +70,14 @@ export default function Login ({ navigation }) {
         <Text style={styles.txtbtnLogin}>Login</Text>
     </TouchableOpacity>
     :
-    <TouchableOpacity style={styles.btnLogin} onPress={LoginUser}>
+    <TouchableOpacity style={styles.btnLogin} onPress={SignIn}>
         <Text style={styles.txtbtnLogin}>Login</Text>
     </TouchableOpacity> 
     }
 
       <Text 
       style={styles.txtNewuser}
-      onPress={() => navigation.navigate('NewUser')}>
+      onPress={() => navigation.navigate('SignUp')}>
         Não possui uma conta? criar
         </Text>
         
