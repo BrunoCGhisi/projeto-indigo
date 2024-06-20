@@ -1,20 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Login from './src/Screens/SignIn';
 import SignIn from './src/Screens/SignIn';
+import Home from './src/Screens/Home';
+import User from './src/Screens/User';
+import UserProfile from './src/Screens/UserProfile';
+import Post from './src/Screens/Post';
 
 export default function App() {
+  const Stack = createStackNavigator();
   return (
-    <View style={styles.container}>
-      <SignIn/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Post" component={Post} options={{headerShown: false}} />
+        <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
+        <Stack.Screen name='SignIn' component={SignIn} options={{headerShown: false}} />
+        <Stack.Screen name='Home' component={Home} options={{headerShown: false}} />
+        <Stack.Screen name="User" component={User} options={{headerShown: false}} />
+        <Stack.Screen name="UserProfile" component={UserProfile} options={{headerShown: false}} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
