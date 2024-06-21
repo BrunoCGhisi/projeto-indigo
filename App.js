@@ -24,11 +24,11 @@ export default function App() {
           component={SignUp}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Post"
           component={Post}
           options={{ headerShown: false }}
-        />
+        /> */}
 
         <Stack.Screen
           name="Home"
