@@ -7,23 +7,62 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import { database } from "../config/firebaseconfig";
+import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
+import { httpsCallable } from "firebase/functions";
 
 export default function Home({ route, navigation }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState({
+    post: {
+      id: "",
+      title: "",
+      description: "",
+      userId: "",
+    },
+    user: {
+      displayName: "",
+      email: "",
+    },
+  });
   const { user } = route.params;
 
   useEffect(() => {
     const postsCollection = collection(database, "Posts");
-    const unsubscribe = onSnapshot(postsCollection, (querySnapshot) => {
-      const list = [];
-      querySnapshot.forEach((doc) => {
-        list.push({ ...doc.data(), id: doc.id });
-      });
+    const unsubscribe = onSnapshot(postsCollection, async (querySnapshot) => {
+      try {
+        const fetchUserData = async (userId) => {
+          const getUserData = httpsCallable(functions, "getUserData");
+          const response = await getUserData({ uid: userId });
 
-      setPosts(list);
+          if (response.data.success) {
+            return response.data.data;
+          } else {
+            console.error("Error fetching user data:", response.data.error);
+            return null;
+          }
+        };
+
+        const promises = querySnapshot.docs.map(async (post) => {
+          const postData = post.data();
+          const user = await fetchUserData(postData.userId);
+          console.log(user.displayName)
+          return {
+            post: { ...postData, id: post.id },
+            user: user
+              ? { email: user.email, displayName: user.displayName }
+              : { email: "Unknown", displayName: "Unknown" },
+          };
+        });
+
+        const resolvedList = await Promise.all(promises);
+        setPosts(resolvedList);
+        console.log(resolvedList);
+      } catch (error) {
+        console.error(error);
+      }
     });
+
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -43,23 +82,25 @@ export default function Home({ route, navigation }) {
             style={{ borderWidth: 1, borderColor: "red" }}
             onPress={() =>
               navigation.navigate("PostDetails", {
-                post: item,
+                post: item.post,
                 user: {
                   userId: user.userId,
                 },
               })
             }
           >
-            <Text>{item?.title}</Text>
-            <Text>{item?.description}</Text>
-            {user.userId === item?.userId && (
-              <TouchableOpacity onPress={() => deletePost(item?.id)}>
+            <Text>{item?.post.title}</Text>
+            <Text>{item?.post.description}</Text>
+            <Text>{item?.user.displayName}</Text>
+            <Text>{item?.user.email}</Text>
+            {user.userId === item?.post.userId && (
+              <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
                 <Text>Deletar</Text>
               </TouchableOpacity>
             )}
           </TouchableOpacity>
         )}
-        keyExtractor={(item) => item?.id}
+        keyExtractor={(item) => item?.post.id}
       />
     </View>
   );
