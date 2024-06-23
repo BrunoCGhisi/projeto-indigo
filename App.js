@@ -1,13 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import SignUp from "./src/Screens/SignUp";
-import SignIn from "./src/Screens/SignIn";
-import Home from "./src/Screens/Home";
-import User from "./src/Screens/User";
-import UserProfile from "./src/Screens/UserProfile";
-import Post from "./src/Screens/Post";
+import SignUp from "./src/screens/SignUp";
+import SignIn from "./src/screens/SignIn";
+import Home from "./src/screens/Home";
+import User from "./src/screens/User";
+import UserProfile from "./src/screens/UserProfile";
+import NewPost from "./src/screens/NewPost";
+import PostDetails from "./src/screens/PostDetails";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -24,15 +23,19 @@ export default function App() {
           component={SignUp}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
-          name="Post"
-          component={Post}
-          options={{ headerShown: false }}
-        /> */}
-
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NewPost"
+          component={NewPost}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PostDetails"
+          component={PostDetails}
           options={{ headerShown: false }}
         />
         <Stack.Screen
