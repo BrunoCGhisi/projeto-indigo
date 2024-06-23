@@ -45,7 +45,7 @@ export default function SignUp({ navigation }) {
       <Text style={styles.title}>Criar Conta</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Nome de usuário"
         value={username}
         onChangeText={setUsername}
         autoCapitalize="none"
@@ -60,7 +60,7 @@ export default function SignUp({ navigation }) {
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Senha"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -78,49 +78,61 @@ export default function SignUp({ navigation }) {
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
+    backgroundColor: '#d9d9d9'
   },
   title: {
     fontSize: 30,
     marginBottom: 20,
-    textAlign: "center",
-    color: "#373D20",
+    textAlign: 'center',
+    color: '#241447',
   },
   input: {
-    width: "90%",
+    width: '90%',
     height: 40,
-    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius:10,
     paddingHorizontal: 10,
-    borderColor: "#373D20",
+    borderColor: '#241447'
   },
-  btnLogin: {
-    backgroundColor: "#373D20",
-    justifyContent: "center",
-    alignItems: "center",
+  alert:{
+    flexDirection: 'row',
+    marginTop: 10,
+    
+    
+  },
+  txtalert:{
+    fontSize: 16,
+    color: 'red'
+  },
+  btnLogin:{
+    backgroundColor:  '#cf6efa',
+    justifyContent:'center',
+    alignItems: 'center',
     marginTop: 20,
     padding: 10,
     borderRadius: 10,
-    width: "50%",
+    width: '50%',
+
   },
-  txtbtnLogin: {
-    color: "#EFF1ED",
+  txtbtnLogin:{
+    color: '#EFF1ED',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
-  txtLogin: {
-    color: "#373D20",
-    fontSize: 20,
-    padding: 10,
-    marginTop: 10,
-  },
+  txtNewuser:{
+    color: '#00ad85',
+    fontSize: 16,
+    padding:2,
+    marginTop: 6,
+
+  }
+
 });
