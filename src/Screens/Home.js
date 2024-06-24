@@ -74,12 +74,6 @@ export default function Home({ route, navigation }) {
       <Header/>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("UserProfile", { user: user })}
-      >
-        <Text>Editar minha conta</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
         style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
       >
@@ -119,6 +113,7 @@ export default function Home({ route, navigation }) {
         )}
         keyExtractor={(item) => item?.post.id}
       />
+      <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
       </ScrollView>
     </View>
   );
@@ -129,13 +124,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-
   },
   flatlist: {
    margin: 10,
   },
-  item_flatlist:{
-  },
+
   post_container:{
     marginBottom: 20,
     padding: 10,
@@ -168,14 +161,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   postNew:{
-    position: 'absolute ',
-    top: 500,
+    position: 'absolute',
+    bottom: 65,
+    right: 20,
     justifyContent: "center",
     alignItems: "center",
     width: 50,
     height: 50,
     borderRadius: 50,
-    margin: 50,
     backgroundColor: '#00ad85',
     alignSelf: 'flex-end',
     zIndex: 1,

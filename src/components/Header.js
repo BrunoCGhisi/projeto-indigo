@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   logo: {
-    
     margin: 10,
     padding: 10,
     width: 60,
