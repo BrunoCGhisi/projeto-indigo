@@ -31,22 +31,18 @@ export default function App() {
         <Stack.Screen
           name="NewPost"
           component={NewPost}
-          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="PostDetails"
           component={PostDetails}
-          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="User"
           component={User}
-          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="UserProfile"
           component={UserProfile}
-          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

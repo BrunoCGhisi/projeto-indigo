@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  ScrollView
 } from "react-native";
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
@@ -70,20 +71,14 @@ export default function Home({ route, navigation }) {
     <View style={styles.container}>
 
       <Header/>
-
       <TouchableOpacity
-        onPress={() => navigation.navigate("UserProfile", { User: user })}
-      >
-        <Text>Editar minha conta</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.item_flatlist}>Home</Text>
-      <TouchableOpacity
-        style={{ backgroundColor: "cyan", marginBottom: 10 }}
+        style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
       >
-        <Text>Novo post</Text>
+        <Text style={styles.txt_postNew}>+</Text>
       </TouchableOpacity>
+
+      <ScrollView>
 
       <FlatList
         style={styles.flatlist}
@@ -102,12 +97,12 @@ export default function Home({ route, navigation }) {
             }
           >
           <View style={styles.post_container} >
-            <Text>{item?.post.title}</Text>
-            <Text>{item?.post.description}</Text>
-            <Text>{item?.user.displayName}</Text>
-            <Text>{item?.user.email}</Text>
+            <Text style={styles.postTitle}>{item?.post.title}</Text>
+            <Text style={styles.postUser}>{item?.user.displayName}</Text>
+            <Text style={styles.postDesc}>{item?.post.description}</Text>
+            <Text style={styles.postUser}>by: {item?.user.email}</Text>
             {user.userId === item?.post.userId && (
-              <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
+              <TouchableOpacity style={styles.postDel} onPress={() => deletePost(item?.post.id)}>
                 <Text>Deletar</Text>
               </TouchableOpacity>
             )}
@@ -116,7 +111,7 @@ export default function Home({ route, navigation }) {
         )}
         keyExtractor={(item) => item?.post.id}
       />
-
+      </ScrollView>
     </View>
   );
 }
@@ -138,6 +133,46 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#f9f9f9",
     borderRadius: 5,
+  },
+  postTitle:{
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  postDesc: {
+    marginBottom: 12,
+    marginTop: 12
+  },
+  postUser:{
+    fontSize: 12,
+  },
+  postDel:{
+    justifyContent: "center",
+    alignItems: "center",
+    fontWeight: 'bold',
+    backgroundColor: '#D16DFD',
+    width: 60,
+    padding: 4,
+    margin: 3,
+    marginTop: 13,
+    borderRadius: 8,
+    alignSelf: 'flex-end'
+  },
+  postNew:{
+    position: 'absolute ',
+    top: 500,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    margin: 50,
+    backgroundColor: '#00ad85',
+    alignSelf: 'flex-end',
+    zIndex: 1,
+  },
+  txt_postNew:{
+    fontSize: 40,
+    paddingBottom: 9
   }
 
 });
