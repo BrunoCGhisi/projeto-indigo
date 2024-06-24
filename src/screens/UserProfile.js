@@ -20,10 +20,6 @@ export default function UserProfile({ route, navigation }) {
       description: "",
       userId: "",
     },
-    user: {
-      displayName: "",
-      email: "",
-    },
   });
   const { user } = route.params;
   const currentUser = auth.currentUser;
@@ -95,7 +91,7 @@ export default function UserProfile({ route, navigation }) {
               })
             }
           >
-            {user.userId === item?.post.userId && (
+            {currentUser.uid === item?.post.userId && (
               <View>
                 <Text>{item?.post.title}</Text>
                 <Text>{item?.post.description}</Text>
@@ -103,7 +99,7 @@ export default function UserProfile({ route, navigation }) {
                 <Text>{item?.user.email}</Text>
               </View>
             )}
-            {user.userId === item?.post.userId && (
+            {currentUser.uid === item?.post.userId && (
               <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
                 <Text>Deletar</Text>
               </TouchableOpacity>

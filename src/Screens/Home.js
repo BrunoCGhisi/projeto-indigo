@@ -26,7 +26,8 @@ export default function Home({ route, navigation }) {
       email: "",
     },
   });
-  const { user } = route.params;
+  
+  const user = auth.currentUser
 
   useEffect(() => {
     const postsCollection = collection(database, "Posts");
@@ -73,7 +74,7 @@ export default function Home({ route, navigation }) {
       <Header/>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("UserProfile", { User: user })}
+        onPress={() => navigation.navigate("UserProfile", { user: user })}
       >
         <Text>Editar minha conta</Text>
       </TouchableOpacity>
@@ -98,7 +99,7 @@ export default function Home({ route, navigation }) {
               navigation.navigate("PostDetails", {
                 post: item.post,
                 user: {
-                  userId: user.userId,
+                  userId: item.user.userId,
                 },
               })
             }

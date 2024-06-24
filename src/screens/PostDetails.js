@@ -4,6 +4,7 @@ import deletePost from "../services/posts/deletePost";
 
 export default function PostDetails({ route, navigation }) {
   const { post, user } = route.params;
+  
   console.log(post);
   console.log(user.userId);
   const handleDeletePost = (id) => {
