@@ -71,6 +71,13 @@ export default function Home({ route, navigation }) {
     <View style={styles.container}>
 
       <Header/>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("UserProfile", { User: user })}
+      >
+        <Text>Editar minha conta</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
@@ -137,6 +144,7 @@ const styles = StyleSheet.create({
   postTitle:{
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#221147'
   },
   postDesc: {
     marginBottom: 12,
@@ -144,6 +152,7 @@ const styles = StyleSheet.create({
   },
   postUser:{
     fontSize: 12,
+    color: '#8b7eaa'
   },
   postDel:{
     justifyContent: "center",
@@ -172,7 +181,6 @@ const styles = StyleSheet.create({
   },
   txt_postNew:{
     fontSize: 40,
-    paddingBottom: 9
   }
 
 });

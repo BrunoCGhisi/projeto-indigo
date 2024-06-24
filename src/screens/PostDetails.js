@@ -13,8 +13,12 @@ export default function PostDetails({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>{post.title}</Text>
-      <Text>{post.description}</Text>
+
+      <View style={styles.post}>
+        <Text style={styles.postTitle}>{post.title}</Text>
+        <Text>{post.description}</Text>
+      </View>
+
       {post.userId === user.userId && (
         <View>
           <TouchableOpacity onPress={() => handleDeletePost(post.id)}>
@@ -27,7 +31,7 @@ export default function PostDetails({ route, navigation }) {
               })
             }
           >
-            <Text>Alterar</Text>
+            <Text style={styles.btn}>Alterar</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -42,4 +46,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  postTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'red'
+  },
+  post: {
+    
+  }
 });
