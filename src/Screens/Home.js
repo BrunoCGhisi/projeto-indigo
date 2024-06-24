@@ -4,6 +4,7 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
+  SafeAreaView,
   View,
   StyleSheet,
   ScrollView
@@ -68,16 +69,9 @@ export default function Home({ route, navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <Header/>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("UserProfile", { User: user })}
-      >
-        <Text>Editar minha conta</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
@@ -119,7 +113,7 @@ export default function Home({ route, navigation }) {
         keyExtractor={(item) => item?.post.id}
       />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
