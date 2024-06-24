@@ -10,6 +10,7 @@ import {
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
+import Header from "../../Header";
 
 export default function Home({ route, navigation }) {
   const [posts, setPosts] = useState({
@@ -67,19 +68,30 @@ export default function Home({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ marginTop: 70, marginBottom: 20 }}>Home</Text>
+
+      <Header/>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("UserProfile", { User: user })}
+      >
+        <Text>Editar minha conta</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.item_flatlist}>Home</Text>
       <TouchableOpacity
         style={{ backgroundColor: "cyan", marginBottom: 10 }}
         onPress={() => navigation.navigate("NewPost")}
       >
         <Text>Novo post</Text>
       </TouchableOpacity>
+
       <FlatList
+        style={styles.flatlist}
         data={posts}
-        style={{ paddingHorizontal: 20 }}
+
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={{ borderWidth: 1, borderColor: "red" }}
+            style={styles.item_flatlist}
             onPress={() =>
               navigation.navigate("PostDetails", {
                 post: item.post,
@@ -89,6 +101,7 @@ export default function Home({ route, navigation }) {
               })
             }
           >
+          <View style={styles.post_container} >
             <Text>{item?.post.title}</Text>
             <Text>{item?.post.description}</Text>
             <Text>{item?.user.displayName}</Text>
@@ -98,10 +111,12 @@ export default function Home({ route, navigation }) {
                 <Text>Deletar</Text>
               </TouchableOpacity>
             )}
+          </View>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item?.post.id}
       />
+
     </View>
   );
 }
@@ -111,6 +126,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+
   },
+  flatlist: {
+   margin: 10,
+  },
+  item_flatlist:{
+  },
+  post_container:{
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 5,
+  }
+
 });
