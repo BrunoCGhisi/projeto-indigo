@@ -132,8 +132,13 @@ const styles = StyleSheet.create({
   post_container:{
     marginBottom: 20,
     padding: 10,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "white",
     borderRadius: 5,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   postTitle:{
     fontSize: 20,
@@ -158,7 +163,12 @@ const styles = StyleSheet.create({
     margin: 3,
     marginTop: 13,
     borderRadius: 8,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    elevation: 5,
+    shadowColor: '#D16DFD',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   postNew:{
     position: 'absolute',
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#00ad85',
     alignSelf: 'flex-end',
-    zIndex: 1,
+    zIndex: 10,
   },
   txt_postNew:{
     fontSize: 40,
