@@ -4,7 +4,6 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   View,
   StyleSheet,
   ScrollView
@@ -70,9 +69,16 @@ export default function Home({ route, navigation }) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
 
       <Header/>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("UserProfile", { user: user })}
+      >
+        <Text>Editar minha conta</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
@@ -114,7 +120,7 @@ export default function Home({ route, navigation }) {
         keyExtractor={(item) => item?.post.id}
       />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -123,7 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#d9d9d9'
 
   },
   flatlist: {
@@ -180,3 +185,4 @@ const styles = StyleSheet.create({
   }
 
 });
+
