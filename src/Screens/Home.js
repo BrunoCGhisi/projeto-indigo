@@ -72,6 +72,12 @@ export default function Home({ route, navigation }) {
     <View style={styles.container}>
 
       <Header/>
+      <TouchableOpacity
+        style={{ backgroundColor: "cyan", marginBottom: 10 }}
+        onPress={() => navigation.navigate("UserProfile", { user: user })}
+      >
+        <Text> Meu Perfil </Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.postNew}
