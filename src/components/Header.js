@@ -4,7 +4,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { auth } from "../src/config/firebaseconfig";
+import { auth } from "../config/firebaseconfig";
 
 
 
@@ -14,10 +14,10 @@ export default function Header({navigation}) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { user: user })}>
-        <Image source={require('../logos/userProf.png')} style={styles.logo}/>
+        <Image source={require('../../logos/userProf.png')} style={styles.logo}/>
       </TouchableOpacity>
         
-      <Image source={require('../logos/indigo1.png')} style={styles.logo}/>
+      <Image source={require('../../logos/indigo1.png')} style={styles.logo}/>
 
     </View>
   );

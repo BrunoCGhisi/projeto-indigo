@@ -11,7 +11,7 @@ import {
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
-import Header from "../../components/Header";
+import Header from "../components/Header";
 
 export default function Home({ route, navigation }) {
   const [posts, setPosts] = useState({
@@ -103,7 +103,7 @@ export default function Home({ route, navigation }) {
             <Text style={styles.postUser}>{item?.user.displayName}</Text>
             <Text style={styles.postDesc}>{item?.post.description}</Text>
             <Text style={styles.postUser}>by: {item?.user.email}</Text>
-            {user.userId === item?.post.userId && (
+            {user.uid === item?.post.userId && (
               <TouchableOpacity style={styles.postDel} onPress={() => deletePost(item?.post.id)}>
                 <Text>Deletar</Text>
               </TouchableOpacity>
@@ -113,7 +113,7 @@ export default function Home({ route, navigation }) {
         )}
         keyExtractor={(item) => item?.post.id}
       />
-      <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+
       </ScrollView>
     </View>
   );
