@@ -7,7 +7,9 @@ import User from "./src/screens/User";
 import UserProfile from "./src/screens/UserProfile";
 import NewPost from "./src/screens/NewPost";
 import PostDetails from "./src/screens/PostDetails";
+import LoginEdit from "./src/screens/LoginEdit";
 import Header from "./src/components/Header";
+
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -50,6 +52,11 @@ export default function App() {
         <Stack.Screen
           name="UserProfile"
           component={UserProfile}
+        />
+
+        <Stack.Screen
+          name="LoginEdit"
+          component={LoginEdit}
         />
 
         
