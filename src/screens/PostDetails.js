@@ -42,9 +42,10 @@ export default function PostDetails({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     padding: 20,
+    backgroundColor: '#d9d9d9',
   },
   postTitle: {
     fontSize: 32,
@@ -52,6 +53,9 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   post: {
-    
+    width: '100%',
+    height: '30%',
+    backgroundColor: 'blue',
+    padding: 20,
   }
 });
