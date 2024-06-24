@@ -7,36 +7,49 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { database, auth } from "../config/firebaseconfig";
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
-export default function LoginEdit(route, navigation) {
-  let user;
-  if (route.params) {
-    user = user.route.params;
+export default function LoginEdit({ route, navigation }) {
+  const user = route.params?.user;
+
+  if (!user) {
+    console.error("Usuário não definido");
+    return (
+      <View style={styles.container}>
+        <Text>Erro: Usuário não definido</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text>Voltar para Home</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
-  console.log(user);
 
   const currentUser = auth.currentUser;
 
-  const [displayName, setDisplayName] = useState(user ? user.displayName : "");
-  const [email, setEmail] = useState(user ? user.email : "");
-  const [password, setPassword] = useState(user ? user.password : "");
+  const [displayName, setDisplayName] = useState(user.displayName || "");
+  const [email, setEmail] = useState(user.email || "");
+  const [password, setPassword] = useState(user.password || "");
 
   const updatePost = async () => {
+    if (!user.userId) {
+      console.error("userId não está definido");
+      return;
+    }
+
     try {
       const userDocRef = doc(database, "Users", user.userId);
       await updateDoc(userDocRef, {
-        ...user,
         displayName: displayName,
         email: email,
         password: password,
       });
     } catch (error) {
-      console.error("Deu erro no usuario meu: ", error);
+      console.error("Deu erro no usuário: ", error);
     }
   };
+
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home", { user: user })}
       >
@@ -49,7 +62,7 @@ export default function LoginEdit(route, navigation) {
 
       <TextInput
         style={styles.titleInput}
-        placeholder="Nome de usuario"
+        placeholder="Nome de usuário"
         onChangeText={setDisplayName}
         value={displayName}
       />
@@ -64,15 +77,14 @@ export default function LoginEdit(route, navigation) {
         placeholder="Senha"
         onChangeText={setPassword}
         value={password}
+        secureTextEntry
       />
       <TouchableOpacity
         style={styles.btnsave}
         disabled={displayName === "" || email === "" || password === ""}
-        onPress={() => {
-          updatePost();
-        }}
+        onPress={updatePost}
       >
-        <Text style={styles.txtbtnsave}> Salvar </Text>
+        <Text style={styles.txtbtnsave}>Salvar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -82,6 +94,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#EFF1ED",
+    justifyContent: "center",
+    alignItems: "center",
   },
   txtTitle: {
     width: "90%",
