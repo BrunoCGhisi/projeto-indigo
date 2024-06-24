@@ -11,7 +11,7 @@ import {
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
-import Header from "../../Header";
+import Header from "../../components/Header";
 
 export default function Home({ route, navigation }) {
   const [posts, setPosts] = useState({
@@ -26,7 +26,8 @@ export default function Home({ route, navigation }) {
       email: "",
     },
   });
-  const { user } = route.params;
+  
+  const user = auth.currentUser
 
   useEffect(() => {
     const postsCollection = collection(database, "Posts");
@@ -73,12 +74,6 @@ export default function Home({ route, navigation }) {
       <Header/>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("UserProfile", { User: user })}
-      >
-        <Text>Editar minha conta</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
         style={styles.postNew}
         onPress={() => navigation.navigate("NewPost")}
       >
@@ -98,7 +93,7 @@ export default function Home({ route, navigation }) {
               navigation.navigate("PostDetails", {
                 post: item.post,
                 user: {
-                  userId: user.userId,
+                  userId: item.user.userId,
                 },
               })
             }
@@ -118,6 +113,7 @@ export default function Home({ route, navigation }) {
         )}
         keyExtractor={(item) => item?.post.id}
       />
+      <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
       </ScrollView>
     </View>
   );
@@ -128,13 +124,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-
   },
   flatlist: {
    margin: 10,
   },
-  item_flatlist:{
-  },
+
   post_container:{
     marginBottom: 20,
     padding: 10,
@@ -167,14 +161,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   postNew:{
-    position: 'absolute ',
-    top: 500,
+    position: 'absolute',
+    bottom: 65,
+    right: 20,
     justifyContent: "center",
     alignItems: "center",
     width: 50,
     height: 50,
     borderRadius: 50,
-    margin: 50,
     backgroundColor: '#00ad85',
     alignSelf: 'flex-end',
     zIndex: 1,
@@ -184,3 +178,4 @@ const styles = StyleSheet.create({
   }
 
 });
+

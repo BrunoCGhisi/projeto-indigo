@@ -26,9 +26,7 @@ export default function SignIn({ navigation }) {
         password
       ); //userCredential vai instanciar com os dados que ele vai receber
       console.log("User logged in:", userCredential.user);
-      navigation.navigate("Home", {
-        user: { userId: userCredential.user.uid },
-      });
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Error logging in:", error);
       //Alert.alert('Error', error.message);
@@ -38,7 +36,7 @@ export default function SignIn({ navigation }) {
   useEffect(() => {
     const statusAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate("Home", { user: { userId: user.uid } });
+        navigation.navigate("Home", { user: { uid: user.uid } });
       }
     });
 
