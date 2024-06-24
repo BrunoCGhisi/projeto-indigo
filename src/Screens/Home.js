@@ -11,7 +11,7 @@ import {
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
-import Header from "../../Header";
+import Header from "../../components/Header";
 
 export default function Home({ route, navigation }) {
   const [posts, setPosts] = useState({

@@ -86,12 +86,12 @@ export default function UserProfile({ route, navigation }) {
               navigation.navigate("PostDetails", {
                 post: item.post,
                 user: {
-                  userId: user.userId,
+                  userId: user.uid,
                 },
               })
             }
           >
-            {currentUser.uid === item?.post.userId && (
+            {user.uid === item?.post.userId && (
               <View>
                 <Text>{item?.post.title}</Text>
                 <Text>{item?.post.description}</Text>
@@ -99,7 +99,7 @@ export default function UserProfile({ route, navigation }) {
                 <Text>{item?.user.email}</Text>
               </View>
             )}
-            {currentUser.uid === item?.post.userId && (
+            {user.uid === item?.post.userId && (
               <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
                 <Text>Deletar</Text>
               </TouchableOpacity>
