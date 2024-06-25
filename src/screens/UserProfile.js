@@ -26,10 +26,9 @@ export default function UserProfile({ route, navigation }) {
 
   let user;
   if (route.params?.user) {
-    user = route.params.user
-  }
-  else {
-    user = currentUser
+    user = route.params.user;
+  } else {
+    user = currentUser;
   }
   // const { user } = route.params;
 
@@ -89,31 +88,31 @@ export default function UserProfile({ route, navigation }) {
         data={posts}
         style={{ paddingHorizontal: 20 }}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={{ borderWidth: 1, borderColor: "red" }}
-            onPress={() =>
-              navigation.navigate("PostDetails", {
-                post: item.post,
-                user: {
-                  userId: user.uid,
-                },
-              })
-            }
-          >
+          <>
             {user.uid === item?.post.userId && (
-              <View>
-                <Text>{item?.post.title}</Text>
-                <Text>{item?.post.description}</Text>
-                <Text>{item?.user.displayName}</Text>
-                <Text>{item?.user.email}</Text>
-              </View>
-            )}
-            {user.uid === item?.post.userId && (
-              <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
-                <Text>Deletar</Text>
+              <TouchableOpacity
+                style={{ borderWidth: 1, borderColor: "red" }}
+                onPress={() =>
+                  navigation.navigate("PostDetails", {
+                    post: item.post,
+                    user: {
+                      userId: user.uid,
+                    },
+                  })
+                }
+              >
+                <View>
+                  <Text>{item?.post.title}</Text>
+                  <Text>{item?.post.description}</Text>
+                  <Text>{item?.user.displayName}</Text>
+                  <Text>{item?.user.email}</Text>
+                </View>
+                <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
+                  <Text>Deletar</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
             )}
-          </TouchableOpacity>
+          </>
         )}
         keyExtractor={(item) => item?.post.id}
       />
