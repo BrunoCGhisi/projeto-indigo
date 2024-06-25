@@ -12,13 +12,8 @@ export default function Header({navigation}) {
   const user = auth.currentUser
   
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { user: user })}>
-        <Image source={require('../../logos/userProf.png')} style={styles.logo}/>
-      </TouchableOpacity>
-        
+    <View style={styles.container}>        
       <Image source={require('../../logos/indigo1.png')} style={styles.logo}/>
-
     </View>
   );
 }
