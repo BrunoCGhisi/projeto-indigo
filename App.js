@@ -60,15 +60,54 @@ export default function App() {
           component={HomeTabs}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Postagem" component={NewPost} />
-        <Stack.Screen name="PostDetails" component={PostDetails} />
-        <Stack.Screen name="User" component={User} />
+        <Stack.Screen name="Postagem" component={NewPost}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}} />
 
-        <Stack.Screen name="Header" component={Header} />
+        <Stack.Screen name="PostDetails" component={PostDetails}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}} /> 
 
-        <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="User" component={User}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}}/>
 
-        <Stack.Screen name="LoginEdit" component={LoginEdit} />
+        <Stack.Screen name="Header" component={Header}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}} />
+
+        <Stack.Screen name="UserProfile" component={UserProfile}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}} />
+
+        <Stack.Screen name="LoginEdit" component={LoginEdit}
+        options={{ headerStyle: {
+          backgroundColor: '#22123C',
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold', },}}/>
+          
       </Stack.Navigator>
     </NavigationContainer>
   );
