@@ -17,7 +17,7 @@ export default function PostDetails({ route, navigation }) {
     navigation.navigate("Home", { user: user });
   };
 
-  const currentUser = auth.currentUser
+  const currentUser = auth.currentUser;
 
   return (
     <View style={styles.container}>
@@ -37,7 +37,9 @@ export default function PostDetails({ route, navigation }) {
             <TouchableOpacity
               style={{ marginBottom: 10 }}
               onPress={() =>
-                navigation.navigate("UserProfile", { user: user })
+                navigation.navigate("UserProfile", {
+                  user: { uid: post.userId },
+                })
               }
             >
               <Text style={styles.postCredits}>
@@ -64,10 +66,12 @@ export default function PostDetails({ route, navigation }) {
               })
             }
           >
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Alterar</Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Alterar</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleDeletePost(post.id)}>
-            <Text style={{fontSize:16, fontWeight:'bold', color:'red'}}>Deletar</Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold", color: "red" }}>
+              Deletar
+            </Text>
           </TouchableOpacity>
         </View>
       )}
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: "left",
     marginLeft: "1rem",
     padding: 10,
-    backgroundColor: '#d9d9d9'
+    backgroundColor: "#d9d9d9",
   },
   container1: {
     borderRadius: 10,
@@ -125,12 +129,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   postButtons: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     height: 40,
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 80,
-    width: '100%',
+    width: "100%",
   },
 });
