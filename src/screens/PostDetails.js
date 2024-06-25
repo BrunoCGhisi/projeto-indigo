@@ -7,16 +7,17 @@ import {
 } from "react-native";
 import React from "react";
 import deletePost from "../services/posts/deletePost";
+import { auth } from "../config/firebaseconfig";
 
 export default function PostDetails({ route, navigation }) {
   const { post, user } = route.params;
 
-  console.log(post);
-  console.log(user.userId);
   const handleDeletePost = (id) => {
     deletePost(id);
     navigation.navigate("Home", { user: user });
   };
+
+  const currentUser = auth.currentUser
 
   return (
     <View style={styles.container}>
@@ -43,15 +44,19 @@ export default function PostDetails({ route, navigation }) {
         </ScrollView>
       </View>
 
-      {post.userId === user.userId && (
+      {post.userId === currentUser.uid && (
         <View>
           <TouchableOpacity onPress={() => handleDeletePost(post.id)}>
             <Text>Deletar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("NewPost", {
+              navigation.navigate("Postagem", {
                 post: post,
+                user: {
+                  displayName: user.displayName,
+                  email: user.email,
+                },
               })
             }
           >

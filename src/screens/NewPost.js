@@ -10,11 +10,8 @@ import { database, auth } from "../config/firebaseconfig";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 
 export default function NewPost({ route, navigation }) {
-  let post;
-  if (route.params) {
-    post = route.params.post;
-  }
-  console.debug(post);
+  const post = route.params?.post;
+  const currentUser = route.params?.user; // displayName and email
 
   const [title, setTitle] = useState(post ? post.title : "");
   const [description, setDescription] = useState(post ? post.description : "");
@@ -40,7 +37,10 @@ export default function NewPost({ route, navigation }) {
           description: description,
           userId: user.uid,
         },
-        user: { userId: user.uid },
+        user: {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+        },
       });
     } catch (error) {
       console.error("Error adding task: ", error);
@@ -64,7 +64,10 @@ export default function NewPost({ route, navigation }) {
 
       navigation.navigate("PostDetails", {
         post: { ...post, title: title, description: description },
-        user: { userId: user.uid },
+        user: {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+        },
       });
     } catch (error) {
       console.error("Error in task: ", error);
@@ -77,7 +80,6 @@ export default function NewPost({ route, navigation }) {
         {isUpdating ? "Alterar Post" : "Nova postagem"}
       </Text>
       <View style={styles.titleContainer}>
-
         <TextInput
           style={styles.titleInput}
           placeholder="Título"
@@ -100,13 +102,15 @@ export default function NewPost({ route, navigation }) {
         onPress={() => {
           if (isUpdating) {
             updatePost();
+
           } else {
             addPost();
+
           }
         }}
       >
-        <Text style={styles.txtbtnsave}> 
-          {isUpdating ? "Salvar" : "Postar"}  
+        <Text style={styles.txtbtnsave}>
+          {isUpdating ? "Salvar" : "Postar"}
         </Text>
       </TouchableOpacity>
     </View>
@@ -116,36 +120,35 @@ export default function NewPost({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d9d9d9',
-    alignItems: 'center',
-
+    backgroundColor: "#d9d9d9",
+    alignItems: "center",
   },
   titleContainer: {
     borderRadius: 10,
     height: 80,
     marginBottom: 20,
-    width: '95%',
-    backgroundColor: 'white',
+    width: "95%",
+    backgroundColor: "white",
     elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   postContainer: {
     borderRadius: 10,
     height: 200,
-    width: '95%',
-    backgroundColor: 'white',
+    width: "95%",
+    backgroundColor: "white",
     elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   txtTitle: {
     width: "90%",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 20,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginTop: 10,
     padding: 10,
-    height: '100%',
+    height: "100%",
     marginHorizontal: "auto",
   },
   btnsave: {
