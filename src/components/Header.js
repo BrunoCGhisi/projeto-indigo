@@ -25,12 +25,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#22123C',
     width: '100%',
-    height: '12%',
     flexDirection: 'row',
   },
   logo: {
-    margin: 10,
-    padding: 10,
+    margin: 5,
     width: 60,
     height:60,
   }
