@@ -5,13 +5,14 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { database, auth } from "../config/firebaseconfig";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 
 export default function NewPost({ route, navigation }) {
   const post = route.params?.post;
-  const currentUser = route.params?.user; // displayName and email
 
   const [title, setTitle] = useState(post ? post.title : "");
   const [description, setDescription] = useState(post ? post.description : "");
@@ -58,37 +59,36 @@ export default function NewPost({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      style={styles.container}
+    >
       <Text style={styles.txtTitle}>
         {isUpdating ? "Alterar Post" : "Nova postagem"}
       </Text>
-      <View style={styles.titleContainer}>
-        <TextInput
-          style={styles.titleInput}
-          placeholder="Título"
-          onChangeText={setTitle}
-          value={title}
-        />
-      </View>
-      <View style={styles.postContainer}>
-        <TextInput
-          style={styles.descInput}
-          placeholder="Descrição"
-          onChangeText={setDescription}
-          value={description}
-          multiline
-        />
-      </View>
+      <TextInput
+        style={styles.titleInput}
+        placeholder="Título"
+        onChangeText={setTitle}
+        value={title}
+      />
+      <TextInput
+        style={styles.descInput}
+        placeholder="Descrição"
+        onChangeText={setDescription}
+        value={description}
+        multiline
+      />
+
       <TouchableOpacity
         style={styles.btnsave}
         disabled={title === "" || description === ""}
         onPress={() => {
           if (isUpdating) {
             updatePost();
-
           } else {
             addPost();
-
           }
         }}
       >
@@ -96,7 +96,7 @@ export default function NewPost({ route, navigation }) {
           {isUpdating ? "Salvar" : "Postar"}
         </Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -105,64 +105,51 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#d9d9d9",
     alignItems: "center",
-  },
-  titleContainer: {
-    borderRadius: 10,
-    height: 80,
-    marginBottom: 20,
-    width: "95%",
-    backgroundColor: "white",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
-  postContainer: {
-    borderRadius: 10,
-    height: 200,
-    width: "95%",
-    backgroundColor: "white",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
+    paddingHorizontal: 5,
+    gap: 15
   },
   txtTitle: {
     width: "90%",
     fontWeight: "bold",
     marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 20,
+    marginBottom: 10,
     fontSize: 16,
     color: "#22123C",
   },
   titleInput: {
-    width: "90%",
-    marginTop: 10,
+    width: "95%",
+    borderRadius: 4,
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#373D20",
+    backgroundColor: "white",
     marginHorizontal: "auto",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   descInput: {
-    width: "90%",
     marginTop: 10,
     padding: 10,
-    height: "100%",
+    borderRadius: 4,
     marginHorizontal: "auto",
+    width: "95%",
+    backgroundColor: "white",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    maxHeight: "35%",
   },
   btnsave: {
     width: "60%",
     backgroundColor: "#22123C",
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    height: 50,
-    bottom: "5%",
-    left: "20%",
     borderRadius: 20,
+    padding: 10,
+    marginVertical: 20,
   },
   txtbtnsave: {
     color: "white",

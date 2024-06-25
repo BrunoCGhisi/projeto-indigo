@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
   flatlist: {
     margin: 10,
   },
-
   post_container: {
     marginBottom: 20,
     padding: 10,

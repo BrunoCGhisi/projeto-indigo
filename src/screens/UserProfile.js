@@ -89,69 +89,78 @@ export default function UserProfile({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: 385, height: 130, backgroundColor: "#22123C" }}></View>
+      <View
+        style={{ width: "100%", height: 130, backgroundColor: "#22123C" }}
+      ></View>
       <Image
         source={require("../../assets/placeholderpfp.jpg")}
         style={styles.profilePicture}
       />
-      <View style={styles.container1}>
+      <View style={styles.header}>
         <Text style={styles.username}>{user.displayName}</Text>
       </View>
 
       {user.uid === currentUser.uid && (
         <View style={{ flexDirection: "row", gap: 50 }}>
           <TouchableOpacity onPress={() => navigation.navigate("LoginEdit")}>
-            <Text style={{ fontSize: 16, fontWeight: "bold", color:"#22123C" }}>
+            <Text
+              style={{ fontSize: 16, fontWeight: "bold", color: "#22123C" }}
+            >
               Editar Perfil
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{}} onPress={() => signOut()}>
-            <Text style={{ fontSize: 16, fontWeight: "bold", color:"#22123C" }}>SignOut</Text>
+            <Text
+              style={{ fontSize: 16, fontWeight: "bold", color: "#22123C" }}
+            >
+              SignOut
+            </Text>
           </TouchableOpacity>
         </View>
       )}
       <FlatList
         data={posts}
-        style={styles.container2}
+        style={styles.postList}
         renderItem={({ item }) => (
-            <TouchableOpacity
-              style={{
-                borderWidth: 2,
-                borderRadius: 15,
-                borderColor: "#22123C",
-                backgroundColor:"white",
-                marginBottom: 5,
-              }}
-              onPress={() =>
-                navigation.navigate("PostDetails", {
-                  post: item.post,
-                  user: user,
-                })
-              }
-            >
-              <View style={{ paddingLeft: 10 }}>
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  {item?.post.title}
+          <TouchableOpacity
+            style={{
+              borderWidth: 2,
+              borderRadius: 15,
+              borderColor: "#22123C",
+              backgroundColor: "white",
+              marginBottom: 5,
+              padding: 10,
+            }}
+            onPress={() =>
+              navigation.navigate("PostDetails", {
+                post: item.post,
+                user: user,
+              })
+            }
+          >
+            <View>
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                {item?.post.title}
+              </Text>
+              <Text>{item?.post.description}</Text>
+              <Text style={{ color: "gray", paddingTop: 20 }}>
+                {user.displayName}
+              </Text>
+              <Text style={{ color: "gray", paddingBottom: 5 }}>
+                {user.email}
+              </Text>
+            </View>
+            {user.uid === currentUser.uid && (
+              <TouchableOpacity
+                style={{ paddingTop: 5 }}
+                onPress={() => deletePost(item?.post.id)}
+              >
+                <Text style={{ color: "red", fontWeight: "bold" }}>
+                  Deletar
                 </Text>
-                <Text>{item?.post.description}</Text>
-                <Text style={{ color: "gray", paddingTop: 20 }}>
-                  {user.displayName}
-                </Text>
-                <Text style={{ color: "gray", paddingBottom: 5 }}>
-                  {user.email}
-                </Text>
-              </View>
-              {user.uid === currentUser.uid && (
-                <TouchableOpacity
-                  style={{ paddingLeft: 10, paddingTop: 5, paddingBottom: 2 }}
-                  onPress={() => deletePost(item?.post.id)}
-                >
-                  <Text style={{ color: "red", fontWeight: "bold" }}>
-                    Deletar
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item?.post.id}
       />
@@ -173,8 +182,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     zIndex: 1,
   },
-  container1: {
-    width: 370,
+  header: {
+    width: "100%",
     height: 110,
     elevation: 5,
     marginTop: 20,
@@ -188,12 +197,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  container2: {
+  postList: {
     gap: 30,
-    width: 370,
+    width: "100%",
     elevation: 5,
     marginTop: 20,
-    borderRadius: 10,
     backgroundColor: "#d9d9d9",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
