@@ -34,9 +34,16 @@ export default function PostDetails({ route, navigation }) {
               alignItems: "left",
             }}
           >
-            <Text style={styles.postCredits}>
-              By: {user.displayName} ({user.email})
-            </Text>
+            <TouchableOpacity
+              style={{ marginBottom: 10 }}
+              onPress={() =>
+                navigation.navigate("UserProfile", { user: user })
+              }
+            >
+              <Text style={styles.postCredits}>
+                By: {user.displayName} ({user.email})
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <ScrollView style={styles.container2}>
@@ -45,10 +52,7 @@ export default function PostDetails({ route, navigation }) {
       </View>
 
       {post.userId === currentUser.uid && (
-        <View>
-          <TouchableOpacity onPress={() => handleDeletePost(post.id)}>
-            <Text>Deletar</Text>
-          </TouchableOpacity>
+        <View style={styles.postButtons}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Postagem", {
@@ -60,7 +64,10 @@ export default function PostDetails({ route, navigation }) {
               })
             }
           >
-            <Text style={styles.btn}>Alterar</Text>
+            <Text style={{fontSize:16, fontWeight:'bold'}}>Alterar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleDeletePost(post.id)}>
+            <Text style={{fontSize:16, fontWeight:'bold', color:'red'}}>Deletar</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -116,5 +123,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
+  },
+  postButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    flexDirection: 'row',
+    gap: 80,
+    width: '100%',
   },
 });
