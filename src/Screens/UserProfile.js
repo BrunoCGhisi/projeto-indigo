@@ -10,8 +10,11 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  Image
 } from "react-native";
+
 import { UserContext } from "../contexts/UserContext";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function UserProfile({ route, navigation }) {
   const [posts, setPosts] = useState({
@@ -86,27 +89,30 @@ export default function UserProfile({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ marginTop: 70, marginBottom: 20 }}>
-        Perfil {user.displayName}
-      </Text>
+      <View style={{width:385, height:130, backgroundColor:'gray'}}></View>
+      <Image source={require('../../assets/placeholderpfp.jpg')} style={styles.profilePicture}/>
+      <View style={styles.container1}>
+        <Text style={styles.username}>
+          Perfil {user.displayName}
+        </Text>
+      </View>
 
       {user.uid === currentUser.uid && (
         <TouchableOpacity
-          style={{ backgroundColor: "cyan", marginBottom: 10 }}
-          onPress={() => navigation.navigate("LoginEdit")}
+          onPress={() => navigation.navigate("LoginEdit", { user: user })}
         >
-          <Text> Editar Perfil </Text>
+          <Text style={{fontSize:16, fontWeight:'bold'}}> Editar Perfil </Text>
         </TouchableOpacity>
       )}
-
+      <ScrollView style={styles.container2}>
       <FlatList
         data={posts}
-        style={{ paddingHorizontal: 20 }}
+        style={{ padding: 20 }}
         renderItem={({ item }) => (
           <>
             {user.uid === item?.post.userId && (
               <TouchableOpacity
-                style={{ borderWidth: 1, borderColor: "red" }}
+                style={{ borderWidth: 5, borderRadius: 15, borderColor: "black", marginBottom: 5,}}
                 onPress={() =>
                   navigation.navigate("PostDetails", {
                     post: item.post,
@@ -116,27 +122,29 @@ export default function UserProfile({ route, navigation }) {
                   })
                 }
               >
-                <View>
-                  <Text>{item?.post.title}</Text>
+                <View style={{paddingLeft:10}}>
+                  <Text style={{fontSize:20, fontWeight:'bold'}}>{item?.post.title}</Text>
                   <Text>{item?.post.description}</Text>
-                  <Text>{item?.user.displayName}</Text>
-                  <Text>{item?.user.email}</Text>
+                  <Text style={{color:'gray', paddingTop:20}}>{item?.user.displayName}</Text>
+                  <Text style={{color:'gray', paddingBottom:5,}}>{item?.user.email}</Text>
                 </View>
-                <TouchableOpacity onPress={() => deletePost(item?.post.id)}>
-                  <Text>Deletar</Text>
+                {user.uid === currentUser.uid && (
+                <TouchableOpacity style={{paddingLeft:10, paddingTop:5}} onPress={() => deletePost(item?.post.id)}>
+                <Text style={{color:'red', fontWeight:'bold'}}>Deletar</Text>
                 </TouchableOpacity>
+                )}
               </TouchableOpacity>
             )}
           </>
         )}
         keyExtractor={(item) => item?.post.id}
       />
-
       {user.uid === currentUser.uid && (
-        <TouchableOpacity onPress={() => signOut()}>
-          <Text>SingOut teste</Text>
+        <TouchableOpacity style={{justifyContent:'center', alignItems:'center'}} onPress={() => signOut()}>
+          <Text style={{fontSize:16, fontWeight:'bold'}}>SingOut</Text>
         </TouchableOpacity>
       )}
+      </ScrollView>
     </View>
   );
 }
@@ -147,6 +155,52 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  profilePicture: {
+    position: 'absolute',
+    top: 100,
+    width: 120,
+    height: 120,
+    borderRadius: 100,
+    zIndex: 1
+  },
+  container1: {
+    width: 370,
+    height: 110,
+    elevation: 5,
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor:'#d9d9d9',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    marginBottom: 20,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  container2: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
+    width: 370,
+    height: 410,
+    elevation: 5,
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor:'#d9d9d9',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    marginBottom: 20,
+  },
+  username: {
+    fontSize: 26,
+    fontWeight: "bold",
+    paddingLeft: 10,
+    paddingTop: 40,
+    color: "black",
   },
   btnNewTask: {
     backgroundColor: "#373D20",
