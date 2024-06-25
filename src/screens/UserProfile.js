@@ -21,8 +21,17 @@ export default function UserProfile({ route, navigation }) {
       userId: "",
     },
   });
-  const { user } = route.params;
+
   const currentUser = auth.currentUser;
+
+  let user;
+  if (route.params?.user) {
+    user = route.params.user
+  }
+  else {
+    user = currentUser
+  }
+  // const { user } = route.params;
 
   useEffect(() => {
     const postsCollection = collection(database, "Posts");

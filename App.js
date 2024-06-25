@@ -9,7 +9,28 @@ import NewPost from "./src/screens/NewPost";
 import PostDetails from "./src/screens/PostDetails";
 import LoginEdit from "./src/screens/LoginEdit";
 import Header from "./src/components/Header";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+function HomeTabs() {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name="HomeComp"
+        component={Home}
+        options={{ headerTitle: "Home", tabBarLabel: "Home" }}
+      />
+      <Tab.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={{
+          headerTitle: "Profile",
+          tabBarLabel: "Profile",
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -24,42 +45,22 @@ export default function App() {
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Postagem"
-          component={NewPost}
+          name="Home"
+          component={HomeTabs}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="PostDetails"
-          component={PostDetails}
-        />
-        <Stack.Screen
-          name="User"
-          component={User}
-        />
+        <Stack.Screen name="Postagem" component={NewPost} />
+        <Stack.Screen name="PostDetails" component={PostDetails} />
+        <Stack.Screen name="User" component={User} />
 
-        <Stack.Screen
-          name="Header"
-          component={Header}
-        />
+        <Stack.Screen name="Header" component={Header} />
 
-        <Stack.Screen
-          name="UserProfile"
-          component={UserProfile}
-        />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
 
-        <Stack.Screen
-          name="LoginEdit"
-          component={LoginEdit}
-        />
-
-        
+        <Stack.Screen name="LoginEdit" component={LoginEdit} />
       </Stack.Navigator>
     </NavigationContainer>
   );
