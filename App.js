@@ -10,6 +10,7 @@ import PostDetails from "./src/screens/PostDetails";
 import LoginEdit from "./src/screens/LoginEdit";
 import Header from "./src/components/Header";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
 function HomeTabs() {
   const Tab = createBottomTabNavigator();
@@ -18,7 +19,11 @@ function HomeTabs() {
       <Tab.Screen
         name="HomeComp"
         component={Home}
-        options={{ headerTitle: "Home", tabBarLabel: "Home" }}
+        options={{
+          headerTitle: "Home",
+          tabBarLabel: "Home",
+          tabBarIcon: () => <FontAwesome name="home" size={24} color="black" />,
+        }}
       />
       <Tab.Screen
         name="UserProfile"
@@ -26,6 +31,9 @@ function HomeTabs() {
         options={{
           headerTitle: "Profile",
           tabBarLabel: "Profile",
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="face-woman" size={24} color="black" />
+          ),
         }}
       />
     </Tab.Navigator>
