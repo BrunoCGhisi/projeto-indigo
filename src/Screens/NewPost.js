@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   btnsave: {
     width: "60%",
-    backgroundColor: "#cf6efa",
+    backgroundColor: "#22123C",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",

@@ -89,7 +89,7 @@ export default function UserProfile({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: 385, height: 130, backgroundColor: "gray" }}></View>
+      <View style={{ width: 385, height: 130, backgroundColor: "#22123C" }}></View>
       <Image
         source={require("../../assets/placeholderpfp.jpg")}
         style={styles.profilePicture}
@@ -101,12 +101,12 @@ export default function UserProfile({ route, navigation }) {
       {user.uid === currentUser.uid && (
         <View style={{ flexDirection: "row", gap: 50 }}>
           <TouchableOpacity onPress={() => navigation.navigate("LoginEdit")}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 16, fontWeight: "bold", color:"#22123C" }}>
               Editar Perfil
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{}} onPress={() => signOut()}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>SignOut</Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold", color:"#22123C" }}>SignOut</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -116,9 +116,10 @@ export default function UserProfile({ route, navigation }) {
         renderItem={({ item }) => (
             <TouchableOpacity
               style={{
-                borderWidth: 5,
+                borderWidth: 2,
                 borderRadius: 15,
-                borderColor: "black",
+                borderColor: "#22123C",
+                backgroundColor:"white",
                 marginBottom: 5,
               }}
               onPress={() =>
@@ -142,7 +143,7 @@ export default function UserProfile({ route, navigation }) {
               </View>
               {user.uid === currentUser.uid && (
                 <TouchableOpacity
-                  style={{ paddingLeft: 10, paddingTop: 5 }}
+                  style={{ paddingLeft: 10, paddingTop: 5, paddingBottom: 2 }}
                   onPress={() => deletePost(item?.post.id)}
                 >
                   <Text style={{ color: "red", fontWeight: "bold" }}>
