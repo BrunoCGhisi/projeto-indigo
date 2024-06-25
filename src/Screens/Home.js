@@ -1,19 +1,19 @@
 import { collection, onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FlatList,
   Text,
   TouchableOpacity,
   View,
   StyleSheet,
-  ScrollView,
 } from "react-native";
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
 import Header from "../components/Header";
+import { UserContext } from "../contexts/UserContext";
 
-export default function Home({ route, navigation }) {
+export default function Home({ navigation }) {
   const [posts, setPosts] = useState({
     post: {
       id: "",
@@ -26,6 +26,7 @@ export default function Home({ route, navigation }) {
       email: "",
     },
   });
+  const { refreshUser } = useContext(UserContext);
 
   const user = auth.currentUser;
 
@@ -66,7 +67,7 @@ export default function Home({ route, navigation }) {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [refreshUser]);
 
   return (
     <View style={styles.container}>
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
   },
   postNew: {
     position: "absolute",
-    bottom: 65,
+    bottom: 40,
     right: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -186,10 +187,10 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     backgroundColor: "#00ad85",
-    alignSelf: "flex-end",
-    zIndex: 10,
+    zIndex: 1,
   },
   txt_postNew: {
     fontSize: 40,
+    lineHeight: 50,
   },
 });

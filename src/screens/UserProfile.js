@@ -1,5 +1,5 @@
 import { collection, onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
 import { httpsCallable } from "firebase/functions";
@@ -11,6 +11,7 @@ import {
   View,
   StyleSheet,
 } from "react-native";
+import { UserContext } from "../contexts/UserContext";
 
 export default function UserProfile({ route, navigation }) {
   const [posts, setPosts] = useState({
@@ -21,6 +22,7 @@ export default function UserProfile({ route, navigation }) {
       userId: "",
     },
   });
+  const { refreshUser } = useContext(UserContext);
 
   const currentUser = auth.currentUser;
 
@@ -30,7 +32,6 @@ export default function UserProfile({ route, navigation }) {
   } else {
     user = currentUser;
   }
-  // const { user } = route.params;
 
   const signOut = async () => {
     try {
@@ -81,20 +82,22 @@ export default function UserProfile({ route, navigation }) {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [refreshUser]);
 
   return (
     <View style={styles.container}>
       <Text style={{ marginTop: 70, marginBottom: 20 }}>
-        Perfil {currentUser ? currentUser.displayName : "Usuário"}
+        Perfil {user.displayName}
       </Text>
 
-      <TouchableOpacity
-        style={{ backgroundColor: "cyan", marginBottom: 10 }}
-        onPress={() => navigation.navigate("LoginEdit", { user: user })}
-      >
-        <Text> Editar Perfil </Text>
-      </TouchableOpacity>
+      {user.uid === currentUser.uid && (
+        <TouchableOpacity
+          style={{ backgroundColor: "cyan", marginBottom: 10 }}
+          onPress={() => navigation.navigate("LoginEdit")}
+        >
+          <Text> Editar Perfil </Text>
+        </TouchableOpacity>
+      )}
 
       <FlatList
         data={posts}
@@ -129,9 +132,11 @@ export default function UserProfile({ route, navigation }) {
         keyExtractor={(item) => item?.post.id}
       />
 
-      <TouchableOpacity onPress={() => signOut()}>
-        <Text>SingOut teste</Text>
-      </TouchableOpacity>
+      {user.uid === currentUser.uid && (
+        <TouchableOpacity onPress={() => signOut()}>
+          <Text>SingOut teste</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

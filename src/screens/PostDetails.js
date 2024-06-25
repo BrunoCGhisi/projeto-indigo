@@ -14,7 +14,7 @@ export default function PostDetails({ route, navigation }) {
 
   const handleDeletePost = (id) => {
     deletePost(id);
-    navigation.navigate("Home", { user: user });
+    navigation.navigate("Home");
   };
 
   const currentUser = auth.currentUser;
@@ -38,7 +38,7 @@ export default function PostDetails({ route, navigation }) {
               style={{ marginBottom: 10 }}
               onPress={() =>
                 navigation.navigate("UserProfile", {
-                  user: { uid: post.userId },
+                  user: { ...user, uid: post.userId },
                 })
               }
             >

@@ -11,6 +11,7 @@ import LoginEdit from "./src/screens/LoginEdit";
 import Header from "./src/components/Header";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import { UserProvider } from "./src/contexts/UserContext";
 
 function HomeTabs() {
   const Tab = createBottomTabNavigator();
@@ -29,8 +30,8 @@ function HomeTabs() {
         name="UserProfile"
         component={UserProfile}
         options={{
-          headerTitle: "Profile",
-          tabBarLabel: "Profile",
+          headerTitle: "Perfil",
+          tabBarLabel: "Perfil",
           tabBarIcon: () => (
             <MaterialCommunityIcons name="face-woman" size={24} color="black" />
           ),
@@ -43,72 +44,110 @@ function HomeTabs() {
 export default function App() {
   const Stack = createStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={HomeTabs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Postagem" component={NewPost}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}} />
+    <UserProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SignIn">
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Postagem"
+            component={NewPost}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
 
-        <Stack.Screen name="PostDetails" component={PostDetails}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}} /> 
+          <Stack.Screen
+            name="PostDetails"
+            component={PostDetails}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
 
-        <Stack.Screen name="User" component={User}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}}/>
+          <Stack.Screen
+            name="User"
+            component={User}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
 
-        <Stack.Screen name="Header" component={Header}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}} />
+          <Stack.Screen
+            name="Header"
+            component={Header}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
 
-        <Stack.Screen name="UserProfile" component={UserProfile}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}} />
+          <Stack.Screen
+            name="UserProfile"
+            component={UserProfile}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
 
-        <Stack.Screen name="LoginEdit" component={LoginEdit}
-        options={{ headerStyle: {
-          backgroundColor: '#22123C',
-        }, 
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold', },}}/>
-          
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="LoginEdit"
+            component={LoginEdit}
+            options={{
+              headerStyle: {
+                backgroundColor: "#22123C",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              headerTitle: "Editar Perfil"
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserProvider>
   );
 }

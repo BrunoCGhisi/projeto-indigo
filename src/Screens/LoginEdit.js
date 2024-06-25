@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -9,24 +9,25 @@ import {
 } from "react-native";
 import { auth } from "../config/firebaseconfig";
 import { updateProfile } from "firebase/auth";
+import { UserContext } from "../contexts/UserContext";
 
 export default function LoginEdit({ navigation }) {
   const [displayName, setDisplayName] = useState("");
-  const [refresh, setRefresh] = useState(false); // Estado para forçar o refresh da página
+  const { setRefreshUser } = useContext(UserContext);
   const user = auth.currentUser;
 
   useEffect(() => {
     setDisplayName(user?.displayName || "");
-  }, [user, refresh]); // Adicione 'refresh' como dependência
+  }, [user]);
 
   const handleUpdate = async () => {
     try {
       // Atualizar o nome de exibição do perfil
       if (displayName && displayName !== user.displayName) {
         await updateProfile(user, { displayName });
-        setRefresh(!refresh); // Altera o estado para forçar o refresh
+        setRefreshUser((prev) => !prev);
         Alert.alert("Sucesso", "Perfil atualizado com sucesso!");
-        navigation.navigate("Home", { user });
+        navigation.navigate("Home");
       }
     } catch (error) {
       console.error(error);
@@ -36,7 +37,7 @@ export default function LoginEdit({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("Home", { user })}>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Text>Home</Text>
       </TouchableOpacity>
       <Text>LoginEdit</Text>
