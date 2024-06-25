@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { auth, database, functions } from "../config/firebaseconfig";
 import deletePost from "../services/posts/deletePost";
@@ -26,8 +26,8 @@ export default function Home({ route, navigation }) {
       email: "",
     },
   });
-  
-  const user = auth.currentUser
+
+  const user = auth.currentUser;
 
   useEffect(() => {
     const postsCollection = collection(database, "Posts");
@@ -48,7 +48,7 @@ export default function Home({ route, navigation }) {
         const promises = querySnapshot.docs.map(async (post) => {
           const postData = post.data();
           const user = await fetchUserData(postData.userId);
-          console.log(user.displayName)
+          console.log(user.displayName);
           return {
             post: { ...postData, id: post.id },
             user: user
@@ -70,8 +70,7 @@ export default function Home({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-
-      <Header/>
+      <Header />
       <TouchableOpacity
         style={{ backgroundColor: "cyan", marginBottom: 10 }}
         onPress={() => navigation.navigate("UserProfile", { user: user })}
@@ -86,12 +85,9 @@ export default function Home({ route, navigation }) {
         <Text style={styles.txt_postNew}>+</Text>
       </TouchableOpacity>
 
-      <ScrollView>
-
       <FlatList
         style={styles.flatlist}
         data={posts}
-
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.item_flatlist}
@@ -99,28 +95,30 @@ export default function Home({ route, navigation }) {
               navigation.navigate("PostDetails", {
                 post: item.post,
                 user: {
-                  userId: item.user.userId,
+                  displayName: item.user.displayName,
+                  email: item.user.email,
                 },
               })
             }
           >
-          <View style={styles.post_container} >
-            <Text style={styles.postTitle}>{item?.post.title}</Text>
-            <Text style={styles.postUser}>{item?.user.displayName}</Text>
-            <Text style={styles.postDesc}>{item?.post.description}</Text>
-            <Text style={styles.postUser}>by: {item?.user.email}</Text>
-            {user.uid === item?.post.userId && (
-              <TouchableOpacity style={styles.postDel} onPress={() => deletePost(item?.post.id)}>
-                <Text>Deletar</Text>
-              </TouchableOpacity>
-            )}
-          </View>
+            <View style={styles.post_container}>
+              <Text style={styles.postTitle}>{item?.post.title}</Text>
+              <Text style={styles.postUser}>{item?.user.displayName}</Text>
+              <Text style={styles.postDesc}>{item?.post.description}</Text>
+              <Text style={styles.postUser}>by: {item?.user.email}</Text>
+              {user.uid === item?.post.userId && (
+                <TouchableOpacity
+                  style={styles.postDel}
+                  onPress={() => deletePost(item?.post.id)}
+                >
+                  <Text>Deletar</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item?.post.id}
       />
-
-      </ScrollView>
     </View>
   );
 }
@@ -133,52 +131,52 @@ const styles = StyleSheet.create({
     backgroundColor: '#d9d9d9'
   },
   flatlist: {
-   margin: 10,
+    margin: 10,
   },
 
-  post_container:{
+  post_container: {
     marginBottom: 20,
     padding: 10,
     backgroundColor: "white",
     borderRadius: 5,
     elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
   },
-  postTitle:{
+  postTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#221147'
+    fontWeight: "bold",
+    color: "#221147",
   },
   postDesc: {
     marginBottom: 12,
-    marginTop: 12
+    marginTop: 12,
   },
-  postUser:{
+  postUser: {
     fontSize: 12,
-    color: '#8b7eaa'
+    color: "#8b7eaa",
   },
-  postDel:{
+  postDel: {
     justifyContent: "center",
     alignItems: "center",
-    fontWeight: 'bold',
-    backgroundColor: '#D16DFD',
+    fontWeight: "bold",
+    backgroundColor: "#D16DFD",
     width: 60,
     padding: 4,
     margin: 3,
     marginTop: 13,
     borderRadius: 8,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     elevation: 5,
-    shadowColor: '#D16DFD',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#D16DFD",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
   },
-  postNew:{
-    position: 'absolute',
+  postNew: {
+    position: "absolute",
     bottom: 65,
     right: 20,
     justifyContent: "center",
@@ -186,13 +184,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: '#00ad85',
-    alignSelf: 'flex-end',
+    backgroundColor: "#00ad85",
+    alignSelf: "flex-end",
     zIndex: 10,
   },
-  txt_postNew:{
+  txt_postNew: {
     fontSize: 40,
-  }
-
+  },
 });
-

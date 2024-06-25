@@ -5,59 +5,56 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { database, auth } from "../config/firebaseconfig";
 import { updateDoc, doc } from "firebase/firestore";
+import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
 
-export default function LoginEdit({ route, navigation }) {
-  const user = route.params?.user;
-
-  if (!user) {
-    console.error("Usuário não definido");
-    return (
-      <View style={styles.container}>
-        <Text>Erro: Usuário não definido</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text>Voltar para Home</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  const currentUser = auth.currentUser;
+export default function LoginEdit({ navigation }) {
+  const user = auth.currentUser;
 
   const [displayName, setDisplayName] = useState(user.displayName || "");
   const [email, setEmail] = useState(user.email || "");
-  const [password, setPassword] = useState(user.password || "");
+  const [password, setPassword] = useState("");
 
-  const updatePost = async () => {
-    if (!user.userId) {
-      console.error("userId não está definido");
-      return;
-    }
-
+  const handleUpdate = async () => {
     try {
-      const userDocRef = doc(database, "Users", user.userId);
-      await updateDoc(userDocRef, {
-        displayName: displayName,
-        email: email,
-        password: password,
-      });
+      // Update profile display name
+      if (displayName !== user.displayName) {
+        await updateProfile(user, { displayName });
+      }
+      // Update email
+      if (email !== user.email) {
+        await updateEmail(user, email);
+      }
+      // Update password
+      if (password) {
+        await updatePassword(user, password);
+      }
+
+      
+      // const userDocRef = doc(database, "users", user.uid);
+      // await updateDoc(userDocRef, {
+      //   displayName,
+      //   email,
+      // });
+
+      Alert.alert("Success", "Profile updated successfully!");
+      navigation.navigate("Home", { user });
     } catch (error) {
-      console.error("Deu erro no usuário: ", error);
+      Alert.alert("Error", error.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home", { user: user })}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("Home", { user })}>
         <Text>Home</Text>
       </TouchableOpacity>
       <Text>LoginEdit</Text>
-      <Text style={{ marginTop: 70, marginBottom: 20 }}>
-        Perfil {currentUser ? currentUser.displayName : "Usuário"}
+      <Text style={styles.profileText}>
+        Perfil {user.displayName || "Usuário"}
       </Text>
 
       <TextInput
@@ -79,12 +76,8 @@ export default function LoginEdit({ route, navigation }) {
         value={password}
         secureTextEntry
       />
-      <TouchableOpacity
-        style={styles.btnsave}
-        disabled={displayName === "" || email === "" || password === ""}
-        onPress={updatePost}
-      >
-        <Text style={styles.txtbtnsave}>Salvar</Text>
+      <TouchableOpacity style={styles.btnsave} onPress={handleUpdate}>
+        <Text style={styles.txtbtnsave}>Save</Text>
       </TouchableOpacity>
     </View>
   );
@@ -97,11 +90,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  txtTitle: {
-    width: "90%",
+  profileText: {
     marginTop: 70,
     marginBottom: 20,
-    marginLeft: 20,
     fontSize: 16,
     color: "#373D20",
   },
@@ -111,16 +102,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#373D20",
-    marginHorizontal: "auto",
   },
   descInput: {
     width: "90%",
     marginTop: 10,
     padding: 10,
-    maxHeight: 200,
     borderBottomWidth: 1,
     borderBottomColor: "#373D20",
-    marginHorizontal: "auto",
   },
   btnsave: {
     width: "60%",
@@ -130,7 +118,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: 50,
     bottom: "5%",
-    left: "20%",
     borderRadius: 20,
   },
   txtbtnsave: {
