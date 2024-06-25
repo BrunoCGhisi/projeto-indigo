@@ -32,7 +32,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="NewPost"
+          name="Nova Postagem"
           component={NewPost}
         />
         <Stack.Screen

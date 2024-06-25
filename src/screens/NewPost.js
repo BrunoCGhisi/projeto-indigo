@@ -76,19 +76,24 @@ export default function NewPost({ route, navigation }) {
       <Text style={styles.txtTitle}>
         {isUpdating ? "Alterar Post" : "Novo Post"}
       </Text>
-      <TextInput
-        style={styles.titleInput}
-        placeholder="Título"
-        onChangeText={setTitle}
-        value={title}
-      />
-      <TextInput
-        style={styles.descInput}
-        placeholder="Descrição"
-        onChangeText={setDescription}
-        value={description}
-        multiline
-      />
+      <View style={styles.titleContainer}>
+
+        <TextInput
+          style={styles.titleInput}
+          placeholder="Título"
+          onChangeText={setTitle}
+          value={title}
+        />
+      </View>
+      <View style={styles.postContainer}>
+        <TextInput
+          style={styles.descInput}
+          placeholder="Descrição"
+          onChangeText={setDescription}
+          value={description}
+          multiline
+        />
+      </View>
       <TouchableOpacity
         style={styles.btnsave}
         disabled={title === "" || description === ""}
@@ -110,6 +115,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#EFF1ED",
+    alignItems: 'center',
+  },
+  titleContainer: {
+    borderRadius: 10,
+    height: 80,
+    marginBottom: 20,
+    width: '95%',
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  postContainer: {
+    borderRadius: 10,
+    height: 200,
+    width: '95%',
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   txtTitle: {
     width: "90%",
@@ -131,9 +160,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginTop: 10,
     padding: 10,
-    maxHeight: 200,
-    borderBottomWidth: 1,
-    borderBottomColor: "#373D20",
+    height: '100%',
     marginHorizontal: "auto",
   },
   btnsave: {
