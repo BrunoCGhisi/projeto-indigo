@@ -202,58 +202,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     color: "black",
   },
-  btnNewTask: {
-    backgroundColor: "#373D20",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    height: 60,
-    width: 60,
-    bottom: 30,
-    left: 20,
-    borderRadius: 20,
-  },
-  iconBtn: {
-    color: "#EFF1ED",
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  tasks: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 5,
-  },
-  btnDeleteTask: {
-    justifyContent: "center",
-    paddingLeft: 15,
-  },
-  txtdescription: {
-    width: "80%",
-    alignContent: "flex-start",
-    backgroundColor: "#bcbd8b",
-    padding: 12,
-    paddingHorizontal: 20,
-    marginBottom: 5,
-    marginRight: 15,
-    color: "#766153",
-  },
-  btnLogout: {
-    backgroundColor: "#FF0000",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    height: 50,
-    width: "60%",
-    bottom: 30,
-    right: 20,
-    borderRadius: 20,
-  },
-  txtbtnLogout: {
-    color: "#EFF1ED",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
 });
 
 //Tela do próprio usuario
