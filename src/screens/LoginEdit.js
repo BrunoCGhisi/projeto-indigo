@@ -37,10 +37,7 @@ export default function LoginEdit({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-        <Text>Home</Text>
-      </TouchableOpacity>
-      <Text>LoginEdit</Text>
+      <Text style={styles.editTitle}>LoginEdit</Text>
       <Text style={styles.profileText}>
         Perfil {user?.displayName || "Usuário"}
       </Text>
@@ -62,35 +59,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#EFF1ED",
-    justifyContent: "center",
+    marginTop: 30,
     alignItems: "center",
   },
+  editTitle: {
+    fontSize: 26,
+    fontWeight: "bold",
+    paddingLeft: 10,
+    paddingTop: 10,
+    color: "black",
+  },
   profileText: {
-    marginTop: 70,
+    marginTop: 10,
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 20,
     color: "#373D20",
   },
   titleInput: {
     width: "90%",
-    marginTop: 10,
+    marginTop: 30,
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#373D20",
   },
   btnsave: {
-    width: "60%",
+    width: "30%",
     backgroundColor: "#373D20",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
     height: 50,
     bottom: "15%",
-    borderRadius: 20,
+    borderRadius: 10,
   },
   txtbtnsave: {
     color: "#EFF1ED",
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
   },
 });
