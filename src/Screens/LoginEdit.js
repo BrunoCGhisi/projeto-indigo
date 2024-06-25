@@ -7,43 +7,32 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { database, auth } from "../config/firebaseconfig";
-import { updateDoc, doc } from "firebase/firestore";
-import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
+import { auth } from "../config/firebaseconfig";
+import {
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  EmailAuthProvider,
+} from "firebase/auth";
 
 export default function LoginEdit({ navigation }) {
   const user = auth.currentUser;
-
-  const [displayName, setDisplayName] = useState(user.displayName || "");
-  const [email, setEmail] = useState(user.email || "");
+  const [displayName, setDisplayName] = useState(user?.displayName || "");
+  const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
   const handleUpdate = async () => {
     try {
-      // Update profile display name
-      if (displayName !== user.displayName) {
+      // Atualizar o nome de exibição do perfil
+      if (displayName && displayName !== user.displayName) {
         await updateProfile(user, { displayName });
       }
-      // Update email
-      if (email !== user.email) {
-        await updateEmail(user, email);
-      }
-      // Update password
-      if (password) {
-        await updatePassword(user, password);
-      }
 
-      
-      // const userDocRef = doc(database, "users", user.uid);
-      // await updateDoc(userDocRef, {
-      //   displayName,
-      //   email,
-      // });
-
-      Alert.alert("Success", "Profile updated successfully!");
+      Alert.alert("Sucesso", "Perfil atualizado com sucesso!");
       navigation.navigate("Home", { user });
     } catch (error) {
-      Alert.alert("Error", error.message);
+      console.error(error);
+      Alert.alert("Erro", error.message);
     }
   };
 
@@ -54,7 +43,7 @@ export default function LoginEdit({ navigation }) {
       </TouchableOpacity>
       <Text>LoginEdit</Text>
       <Text style={styles.profileText}>
-        Perfil {user.displayName || "Usuário"}
+        Perfil {user?.displayName || "Usuário"}
       </Text>
 
       <TextInput
@@ -63,21 +52,8 @@ export default function LoginEdit({ navigation }) {
         onChangeText={setDisplayName}
         value={displayName}
       />
-      <TextInput
-        style={styles.descInput}
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-      />
-      <TextInput
-        style={styles.descInput}
-        placeholder="Senha"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-      />
       <TouchableOpacity style={styles.btnsave} onPress={handleUpdate}>
-        <Text style={styles.txtbtnsave}>Save</Text>
+        <Text style={styles.txtbtnsave}>Salvar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -117,10 +93,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     height: 50,
-    bottom: "5%",
+    bottom: "15%",
     borderRadius: 20,
   },
   txtbtnsave: {
+    color: "#EFF1ED",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  btnlogout: {
+    width: "60%",
+    backgroundColor: "#FF5733",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    height: 50,
+    bottom: "5%",
+    borderRadius: 20,
+  },
+  txtbtnlogout: {
     color: "#EFF1ED",
     fontSize: 25,
     fontWeight: "bold",
