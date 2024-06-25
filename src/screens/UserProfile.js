@@ -48,7 +48,7 @@ export default function UserProfile({ route, navigation }) {
         const fetchUserData = async (userId) => {
           const getUserData = httpsCallable(functions, "getUserData");
           const response = await getUserData({ uid: userId });
-  
+
           if (response.data.success) {
             return response.data.data;
           } else {
@@ -56,7 +56,7 @@ export default function UserProfile({ route, navigation }) {
             return null;
           }
         };
-  
+
         const promises = querySnapshot.docs.map(async (post) => {
           const postData = post.data();
           const user = await fetchUserData(postData.userId);
@@ -68,7 +68,7 @@ export default function UserProfile({ route, navigation }) {
               : { email: "Unknown", displayName: "Unknown" },
           };
         });
-  
+
         const resolvedList = await Promise.all(promises);
         const filteredPosts = resolvedList.filter(
           (item) => item.post.userId === user.uid
@@ -79,7 +79,7 @@ export default function UserProfile({ route, navigation }) {
         console.error(error);
       }
     });
-  
+
     return () => unsubscribe();
   }, []);
 
