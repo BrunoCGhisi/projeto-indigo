@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TextInput,
-  Button,
+  Image,
   StyleSheet,
   Alert,
   KeyboardAvoidingView,
@@ -42,6 +42,7 @@ export default function SignUp({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
+      <Image source={require('../../logos/indigo3.png')} style={styles.logo}/>
       <Text style={styles.title}>Criar Conta</Text>
       <TextInput
         style={styles.input}
@@ -133,6 +134,10 @@ const styles = StyleSheet.create({
     padding:2,
     marginTop: 6,
 
+  },
+  logo: {
+    width: 90,
+    height:90,
   }
 
 });
