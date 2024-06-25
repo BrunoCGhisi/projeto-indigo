@@ -32,6 +32,15 @@ export default function UserProfile({ route, navigation }) {
   }
   // const { user } = route.params;
 
+  const signOut = async () => {
+    try {
+      await auth.signOut();
+      navigation.navigate("SignIn");
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
+  };
+
   useEffect(() => {
     const postsCollection = collection(database, "Posts");
     const unsubscribe = onSnapshot(postsCollection, async (querySnapshot) => {
@@ -117,10 +126,8 @@ export default function UserProfile({ route, navigation }) {
         keyExtractor={(item) => item?.post.id}
       />
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home", { user: user })}
-      >
-        <Text>Home</Text>
+      <TouchableOpacity onPress={() => signOut()}>
+        <Text>SingOut teste</Text>
       </TouchableOpacity>
     </View>
   );
