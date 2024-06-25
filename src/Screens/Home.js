@@ -74,7 +74,14 @@ export default function Home({ route, navigation }) {
 
       <TouchableOpacity
         style={styles.postNew}
-        onPress={() => navigation.navigate("Postagem")}
+        onPress={() =>
+          navigation.navigate("Postagem", {
+            user: {
+              displayName: user.displayName,
+              email: user.email,
+            },
+          })
+        }
       >
         <Text style={styles.txt_postNew}>+</Text>
       </TouchableOpacity>
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#d9d9d9'
+    backgroundColor: "#d9d9d9",
   },
   flatlist: {
     margin: 10,
