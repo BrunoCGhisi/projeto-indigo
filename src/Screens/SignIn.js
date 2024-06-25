@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Image
 } from "react-native";
 import { auth, onAuthStateChanged } from "../config/firebaseconfig";
 import { signInWithEmailAndPassword } from "firebase/auth"; // propriedade firebase
@@ -48,6 +49,7 @@ export default function SignIn({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
+      <Image source={require('../../logos/indigo3.png')} style={styles.logo}/>
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
@@ -148,6 +150,10 @@ const styles = StyleSheet.create({
     padding:2,
     marginTop: 6,
 
+  },
+  logo: {
+    width: 90,
+    height:90,
   }
 
 });
