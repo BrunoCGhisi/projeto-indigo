@@ -1,25 +1,41 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import deletePost from "../services/posts/deletePost";
 
 export default function PostDetails({ route, navigation }) {
   const { post, user } = route.params;
-  
+
   console.log(post);
   console.log(user.userId);
   const handleDeletePost = (id) => {
     deletePost(id);
-    navigation.navigate("Home", {user: user});
+    navigation.navigate("Home", { user: user });
   };
 
   return (
     <View style={styles.container}>
-
       <View style={styles.post}>
         <View style={styles.container1}>
           <Text style={styles.postTitle}>{post.title}</Text>
-          <View style={{width:"30rem", height:"2rem", marginLeft:"2rem", display:"flex", justifyContent:"left", alignItems:"left"}}>
-            <Text style={styles.postCredits}>By: Rafael Teixeira Serafim (Rafael@gmail.com)</Text>
+          <View
+            style={{
+              width: "30rem",
+              height: "2rem",
+              marginLeft: "2rem",
+              display: "flex",
+              justifyContent: "left",
+              alignItems: "left",
+            }}
+          >
+            <Text style={styles.postCredits}>
+              By: {user.displayName} ({user.email})
+            </Text>
           </View>
         </View>
         <ScrollView style={styles.container2}>
@@ -57,40 +73,40 @@ const styles = StyleSheet.create({
   },
   container1: {
     height: 150,
-    width: '98%',
-    backgroundColor: 'white',
+    width: "98%",
+    backgroundColor: "white",
     elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   postTitle: {
     fontSize: 42,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: "2rem",
     marginTop: "1rem",
-    color: 'black',
+    color: "black",
   },
   postDescription: {
     fontSize: 20,
     marginLeft: "2rem",
     marginTop: "1rem",
-    color: 'black',
+    color: "black",
   },
   postCredits: {
     fontSize: 15,
-    color: 'gray',
+    color: "gray",
   },
   container2: {
-    marginTop: '1rem',
-    height: '50rem',
-    width: '98%',
-    backgroundColor: 'white',
+    marginTop: "1rem",
+    height: "50rem",
+    width: "98%",
+    backgroundColor: "white",
     elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 0},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-  }
+  },
 });
