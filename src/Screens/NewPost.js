@@ -74,7 +74,7 @@ export default function NewPost({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.txtTitle}>
-        {isUpdating ? "Alterar Post" : "Novo Post"}
+        {isUpdating ? "Alterar Post" : "Nova postagem"}
       </Text>
       <View style={styles.titleContainer}>
 
@@ -114,8 +114,9 @@ export default function NewPost({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EFF1ED",
+    backgroundColor: '#d9d9d9',
     alignItems: 'center',
+
   },
   titleContainer: {
     borderRadius: 10,
@@ -142,11 +143,12 @@ const styles = StyleSheet.create({
   },
   txtTitle: {
     width: "90%",
-    marginTop: 70,
+    fontWeight: 'bold',
+    marginTop: 20,
     marginBottom: 20,
     marginLeft: 20,
     fontSize: 16,
-    color: "#373D20",
+    color: "#22123C",
   },
   titleInput: {
     width: "90%",
