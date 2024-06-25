@@ -42,7 +42,7 @@ export default function SignUp({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <Image source={require('../../logos/indigo3.png')} style={styles.logo}/>
+      <Image source={require("../../logos/indigo3.png")} style={styles.logo} />
       <Text style={styles.title}>Criar Conta</Text>
       <TextInput
         style={styles.input}
@@ -66,15 +66,23 @@ export default function SignUp({ navigation }) {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.btnLogin} onPress={SingUpUser} disabled={username === ""}>
+      <TouchableOpacity
+        style={styles.btnLogin}
+        onPress={SingUpUser}
+        disabled={username === ""}
+      >
         <Text style={styles.txtbtnLogin}>Criar</Text>
       </TouchableOpacity>
 
-      <Text
-        style={styles.txtNewuser}
-        onPress={() => navigation.navigate("SignIn")}
-      >
-        Já possui uma conta? Logar
+      <Text style={styles.txtExistUser}>
+        Já possui uma conta?
+        <Text
+          style={styles.txtLogin}
+          onPress={() => navigation.navigate("SignIn")}
+        >
+          {" "}
+          Login
+        </Text>
       </Text>
     </KeyboardAvoidingView>
   );
@@ -82,62 +90,57 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#d9d9d9'
+    backgroundColor: "#d9d9d9",
   },
   title: {
     fontSize: 30,
     marginBottom: 20,
-    textAlign: 'center',
-    color: '#241447',
+    textAlign: "center",
+    color: "#241447",
   },
   input: {
-    width: '90%',
+    width: "90%",
     height: 40,
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
-    borderRadius:10,
+    borderRadius: 10,
     paddingHorizontal: 10,
-    borderColor: '#241447'
+    borderColor: "#241447",
   },
-  alert:{
-    flexDirection: 'row',
+  alert: {
+    flexDirection: "row",
     marginTop: 10,
-    
-    
   },
-  txtalert:{
+  txtalert: {
     fontSize: 16,
-    color: 'red'
+    color: "red",
   },
-  btnLogin:{
-    backgroundColor:  '#cf6efa',
-    justifyContent:'center',
-    alignItems: 'center',
+  btnLogin: {
+    backgroundColor: "#cf6efa",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
     padding: 10,
     borderRadius: 10,
-    width: '50%',
-
+    width: "50%",
   },
-  txtbtnLogin:{
-    color: '#EFF1ED',
+  txtbtnLogin: {
+    color: "#EFF1ED",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  txtNewuser:{
-    color: '#00ad85',
-    fontSize: 16,
-    padding:2,
-    marginTop: 6,
-
+  txtExistUser: {
+    marginTop: 5,
+  },
+  txtLogin: {
+    color: "#00ad85",
   },
   logo: {
     width: 90,
-    height:90,
-  }
-
+    height: 90,
+  },
 });

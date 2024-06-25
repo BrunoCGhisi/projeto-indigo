@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  Image
+  Image,
 } from "react-native";
 
 import { UserContext } from "../contexts/UserContext";
@@ -89,62 +89,71 @@ export default function UserProfile({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={{width:385, height:130, backgroundColor:'gray'}}></View>
-      <Image source={require('../../assets/placeholderpfp.jpg')} style={styles.profilePicture}/>
+      <View style={{ width: 385, height: 130, backgroundColor: "gray" }}></View>
+      <Image
+        source={require("../../assets/placeholderpfp.jpg")}
+        style={styles.profilePicture}
+      />
       <View style={styles.container1}>
-        <Text style={styles.username}>
-          Perfil {user.displayName}
-        </Text>
+        <Text style={styles.username}>{user.displayName}</Text>
       </View>
 
       {user.uid === currentUser.uid && (
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LoginEdit", { user: user })}
-        >
-          <Text style={{fontSize:16, fontWeight:'bold'}}> Editar Perfil </Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", gap: 50 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("LoginEdit")}>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              Editar Perfil
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{}} onPress={() => signOut()}>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>SignOut</Text>
+          </TouchableOpacity>
+        </View>
       )}
-      <ScrollView style={styles.container2}>
       <FlatList
         data={posts}
-        style={{ padding: 20 }}
+        style={styles.container2}
         renderItem={({ item }) => (
-          <>
-            {user.uid === item?.post.userId && (
-              <TouchableOpacity
-                style={{ borderWidth: 5, borderRadius: 15, borderColor: "black", marginBottom: 5,}}
-                onPress={() =>
-                  navigation.navigate("PostDetails", {
-                    post: item.post,
-                    user: {
-                      userId: user.uid,
-                    },
-                  })
-                }
-              >
-                <View style={{paddingLeft:10}}>
-                  <Text style={{fontSize:20, fontWeight:'bold'}}>{item?.post.title}</Text>
-                  <Text>{item?.post.description}</Text>
-                  <Text style={{color:'gray', paddingTop:20}}>{item?.user.displayName}</Text>
-                  <Text style={{color:'gray', paddingBottom:5,}}>{item?.user.email}</Text>
-                </View>
-                {user.uid === currentUser.uid && (
-                <TouchableOpacity style={{paddingLeft:10, paddingTop:5}} onPress={() => deletePost(item?.post.id)}>
-                <Text style={{color:'red', fontWeight:'bold'}}>Deletar</Text>
+            <TouchableOpacity
+              style={{
+                borderWidth: 5,
+                borderRadius: 15,
+                borderColor: "black",
+                marginBottom: 5,
+              }}
+              onPress={() =>
+                navigation.navigate("PostDetails", {
+                  post: item.post,
+                  user: user,
+                })
+              }
+            >
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  {item?.post.title}
+                </Text>
+                <Text>{item?.post.description}</Text>
+                <Text style={{ color: "gray", paddingTop: 20 }}>
+                  {user.displayName}
+                </Text>
+                <Text style={{ color: "gray", paddingBottom: 5 }}>
+                  {user.email}
+                </Text>
+              </View>
+              {user.uid === currentUser.uid && (
+                <TouchableOpacity
+                  style={{ paddingLeft: 10, paddingTop: 5 }}
+                  onPress={() => deletePost(item?.post.id)}
+                >
+                  <Text style={{ color: "red", fontWeight: "bold" }}>
+                    Deletar
+                  </Text>
                 </TouchableOpacity>
-                )}
-              </TouchableOpacity>
-            )}
-          </>
+              )}
+            </TouchableOpacity>
         )}
         keyExtractor={(item) => item?.post.id}
       />
-      {user.uid === currentUser.uid && (
-        <TouchableOpacity style={{justifyContent:'center', alignItems:'center'}} onPress={() => signOut()}>
-          <Text style={{fontSize:16, fontWeight:'bold'}}>SingOut</Text>
-        </TouchableOpacity>
-      )}
-      </ScrollView>
     </View>
   );
 }
@@ -154,15 +163,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
   },
   profilePicture: {
-    position: 'absolute',
-    top: 100,
+    position: "absolute",
+    top: 80,
     width: 120,
     height: 120,
     borderRadius: 100,
-    zIndex: 1
+    zIndex: 1,
   },
   container1: {
     width: 370,
@@ -170,30 +178,28 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginTop: 20,
     borderRadius: 10,
-    backgroundColor:'#d9d9d9',
+    backgroundColor: "#d9d9d9",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
     marginBottom: 20,
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   container2: {
-    display: 'flex',
-    flexDirection: 'column',
     gap: 30,
     width: 370,
-    height: 410,
     elevation: 5,
     marginTop: 20,
     borderRadius: 10,
-    backgroundColor:'#d9d9d9',
+    backgroundColor: "#d9d9d9",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingTop: 3,
   },
   username: {
     fontSize: 26,

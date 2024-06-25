@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 import { auth, onAuthStateChanged } from "../config/firebaseconfig";
 import { signInWithEmailAndPassword } from "firebase/auth"; // propriedade firebase
@@ -49,12 +49,12 @@ export default function SignIn({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <Image source={require('../../logos/indigo3.png')} style={styles.logo}/>
+      <Image source={require("../../logos/indigo3.png")} style={styles.logo} />
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
-        placeholderTextColor={'#241447'}
+        placeholderTextColor={"#241447"}
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -63,7 +63,7 @@ export default function SignIn({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Senha"
-        placeholderTextColor={'#241447'}
+        placeholderTextColor={"#241447"}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -85,11 +85,15 @@ export default function SignIn({ navigation }) {
         </TouchableOpacity>
       )}
 
-      <Text
-        style={styles.txtNewuser}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        Não possui uma conta? criar
+      <Text style={styles.txtNewUser}>
+        Não possui uma conta?
+        <Text
+          style={styles.txtSignup}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          {" "}
+          Signup
+        </Text>
       </Text>
     </KeyboardAvoidingView>
   );
@@ -98,62 +102,57 @@ export default function SignIn({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#d9d9d9'
+    backgroundColor: "#d9d9d9",
   },
   title: {
     fontSize: 30,
     marginBottom: 20,
-    textAlign: 'center',
-    color: '#241447',
+    textAlign: "center",
+    color: "#241447",
   },
   input: {
-    width: '90%',
+    width: "90%",
     height: 40,
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
-    borderRadius:10,
+    borderRadius: 10,
     paddingHorizontal: 10,
-    borderColor: '#241447'
+    borderColor: "#241447",
   },
-  alert:{
-    flexDirection: 'row',
+  alert: {
+    flexDirection: "row",
     marginTop: 10,
-    
-    
   },
-  txtalert:{
+  txtalert: {
     fontSize: 16,
-    color: 'red'
+    color: "red",
   },
-  btnLogin:{
-    backgroundColor:  '#cf6efa',
-    justifyContent:'center',
-    alignItems: 'center',
+  btnLogin: {
+    backgroundColor: "#cf6efa",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
     padding: 10,
     borderRadius: 10,
-    width: '50%',
-
+    width: "50%",
   },
-  txtbtnLogin:{
-    color: '#EFF1ED',
+  txtbtnLogin: {
+    color: "#EFF1ED",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  txtNewuser:{
-    color: '#00ad85',
-    fontSize: 16,
-    padding:2,
-    marginTop: 6,
-
+  txtNewUser: {
+    marginTop: 5,
+  },
+  txtSignup: {
+    color: "#00ad85",
   },
   logo: {
     width: 90,
-    height:90,
-  }
-
+    height: 90,
+  },
 });

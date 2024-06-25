@@ -30,18 +30,7 @@ export default function NewPost({ route, navigation }) {
         description: description,
         userId: user.uid, // Inclui o ID do usuário
       });
-      navigation.navigate("PostDetails", {
-        post: {
-          id: postDocRef.id,
-          title: title,
-          description: description,
-          userId: user.uid,
-        },
-        user: {
-          displayName: currentUser.displayName,
-          email: currentUser.email,
-        },
-      });
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Error adding task: ", error);
     }
@@ -62,13 +51,7 @@ export default function NewPost({ route, navigation }) {
         description: description,
       });
 
-      navigation.navigate("PostDetails", {
-        post: { ...post, title: title, description: description },
-        user: {
-          displayName: currentUser.displayName,
-          email: currentUser.email,
-        },
-      });
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Error in task: ", error);
     }

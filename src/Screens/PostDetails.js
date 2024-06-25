@@ -21,37 +21,38 @@ export default function PostDetails({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.post}>
-        <View style={styles.container1}>
-          <Text style={styles.postTitle}>{post.title}</Text>
-          <View
-            style={{
-              width: "30rem",
-              height: "2rem",
-              marginLeft: "2rem",
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "left",
-            }}
+      <View style={styles.container1}>
+        <Text style={styles.postTitle}>{post.title}</Text>
+        <View
+          style={{
+            width: "30rem",
+            height: "2rem",
+            marginLeft: "2rem",
+            display: "flex",
+            justifyContent: "left",
+            alignItems: "left",
+          }}
+        >
+          <TouchableOpacity
+            style={{ marginBottom: 10 }}
+            onPress={() =>
+              navigation.navigate("UserProfile", {
+                user: { ...user, uid: post.userId },
+              })
+            }
           >
-            <TouchableOpacity
-              style={{ marginBottom: 10 }}
-              onPress={() =>
-                navigation.navigate("UserProfile", {
-                  user: { ...user, uid: post.userId },
-                })
-              }
-            >
-              <Text style={styles.postCredits}>
-                By: {user.displayName} ({user.email})
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <Text style={styles.postCredits}>
+              By: {user.displayName} ({user.email})
+            </Text>
+          </TouchableOpacity>
         </View>
-        <ScrollView style={styles.container2}>
-          <Text style={styles.postDescription}>{post.description}</Text>
-        </ScrollView>
       </View>
+      <ScrollView
+        style={styles.container2}
+        contentContainerStyle={styles.scrollViewContent}
+      >
+        <Text style={styles.postDescription}>{post.description}</Text>
+      </ScrollView>
 
       {post.userId === currentUser.uid && (
         <View style={styles.postButtons}>
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
   },
   container1: {
     borderRadius: 10,
-    height: 100,
     backgroundColor: "white",
+    height: 100,
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
@@ -118,9 +119,9 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   container2: {
+    flex: 1,
     borderRadius: 10,
     marginTop: "1rem",
-    height: 550,
     backgroundColor: "white",
     elevation: 5,
     shadowColor: "#000",
@@ -129,12 +130,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   postButtons: {
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: 40,
+    flexShrink: 0,
     flexDirection: "row",
     gap: 80,
+    marginVertical: 10,
     width: "100%",
   },
 });
