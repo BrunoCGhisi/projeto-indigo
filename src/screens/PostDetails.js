@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#d9d9d9'
   },
   container1: {
+    borderRadius: 10,
     height: 150,
     width: "98%",
     backgroundColor: "white",
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   container2: {
+    borderRadius: 10,
     marginTop: "1rem",
     height: "50rem",
     width: "98%",

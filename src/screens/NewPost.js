@@ -105,7 +105,9 @@ export default function NewPost({ route, navigation }) {
           }
         }}
       >
-        <Text style={styles.txtbtnsave}> Salvar </Text>
+        <Text style={styles.txtbtnsave}> 
+          {isUpdating ? "Salvar" : "Postar"}  
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
   },
   btnsave: {
     width: "60%",
-    backgroundColor: "#373D20",
+    backgroundColor: "#cf6efa",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
@@ -177,7 +179,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   txtbtnsave: {
-    color: "#EFF1ED",
+    color: "white",
     fontSize: 25,
     fontWeight: "bold",
   },
