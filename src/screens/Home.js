@@ -81,7 +81,7 @@ export default function Home({ route, navigation }) {
 
       <TouchableOpacity
         style={styles.postNew}
-        onPress={() => navigation.navigate("Nova Postagem")}
+        onPress={() => navigation.navigate("Postagem")}
       >
         <Text style={styles.txt_postNew}>+</Text>
       </TouchableOpacity>
