@@ -100,11 +100,13 @@ export default function NewPost({ route, navigation }) {
         onPress={() => {
           if (isUpdating) {
             updatePost();
+
           } else {
             addPost();
+
           }
         }}
-      >
+        >
         <Text style={styles.txtbtnsave}> 
           {isUpdating ? "Salvar" : "Postar"}  
         </Text>
