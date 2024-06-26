@@ -28,7 +28,7 @@ export default function SignUp({ navigation }) {
       updateProfile(userCredential.user, {
         displayName: username,
       });
-      console.log("User registered:", userCredential.user);
+      console.log("User registered:", userCredential.user.displayName);
       Alert.alert("conta criada");
       navigation.navigate("SignIn");
     } catch (error) {

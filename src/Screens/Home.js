@@ -24,6 +24,7 @@ export default function Home({ navigation }) {
     user: {
       displayName: "",
       email: "",
+      photoURL: "",
     },
   });
   const { refreshUser } = useContext(UserContext);
@@ -49,18 +50,20 @@ export default function Home({ navigation }) {
         const promises = querySnapshot.docs.map(async (post) => {
           const postData = post.data();
           const user = await fetchUserData(postData.userId);
-          console.log(user.displayName);
           return {
             post: { ...postData, id: post.id },
             user: user
-              ? { email: user.email, displayName: user.displayName }
-              : { email: "Unknown", displayName: "Unknown" },
+              ? {
+                  email: user.email,
+                  displayName: user.displayName,
+                  photoURL: user.photoURL,
+                }
+              : { email: "Unknown", displayName: "Unknown", photoURL: "" },
           };
         });
 
         const resolvedList = await Promise.all(promises);
         setPosts(resolvedList);
-        console.log(resolvedList);
       } catch (error) {
         console.error(error);
       }
@@ -80,6 +83,7 @@ export default function Home({ navigation }) {
             user: {
               displayName: user.displayName,
               email: user.email,
+              photoURL: user.photoURL,
             },
           })
         }
@@ -99,6 +103,7 @@ export default function Home({ navigation }) {
                 user: {
                   displayName: item.user.displayName,
                   email: item.user.email,
+                  photoURL: item.user.photoURL,
                 },
               })
             }

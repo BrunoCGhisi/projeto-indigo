@@ -32,6 +32,7 @@ exports.getUserData = functions.https.onCall(async (data, context) => {
       data: {
         displayName: userRecord.displayName,
         email: userRecord.email,
+        photoURL: userRecord.photoURL,
         // Add other user fields you need
       },
     };

@@ -26,7 +26,7 @@ export default function SignIn({ navigation }) {
         email,
         password
       ); //userCredential vai instanciar com os dados que ele vai receber
-      console.log("User logged in:", userCredential.user);
+      console.log("User logged in:", userCredential.user.displayName);
       navigation.navigate("Home");
     } catch (error) {
       console.error("Error logging in:", error);

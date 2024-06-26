@@ -64,7 +64,6 @@ export default function UserProfile({ route, navigation }) {
         const promises = querySnapshot.docs.map(async (post) => {
           const postData = post.data();
           const user = await fetchUserData(postData.userId);
-          console.log(user.displayName);
           return {
             post: { ...postData, id: post.id },
             user: user
@@ -78,7 +77,6 @@ export default function UserProfile({ route, navigation }) {
           (item) => item.post.userId === user.uid
         );
         setPosts(filteredPosts);
-        console.log(filteredPosts);
       } catch (error) {
         console.error(error);
       }
@@ -93,7 +91,11 @@ export default function UserProfile({ route, navigation }) {
         style={{ width: "100%", height: 130, backgroundColor: "#22123C" }}
       ></View>
       <Image
-        source={require("../../assets/placeholderpfp.jpg")}
+        source={
+          user.photoURL
+            ? { uri: user.photoURL }
+            : require("../../assets/placeholderpfp.jpg")
+        }
         style={styles.profilePicture}
       />
       <View style={styles.header}>
